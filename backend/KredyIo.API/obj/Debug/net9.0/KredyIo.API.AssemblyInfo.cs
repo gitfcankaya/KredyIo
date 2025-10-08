@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KredyIo.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+632d3982d29e966abb2fbad9db9a2c8848f4b9f4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e31917dd65580184d68d6cc00bc36559b7bea357")]
 [assembly: System.Reflection.AssemblyProductAttribute("KredyIo.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KredyIo.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
