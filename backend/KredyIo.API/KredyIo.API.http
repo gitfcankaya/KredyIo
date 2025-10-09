@@ -1,0 +1,6 @@
+@KredyIo.API_HostAddress = http://localhost:5148
+
+GET {{KredyIo.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
