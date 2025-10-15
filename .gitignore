@@ -5,6 +5,8 @@ backend/**/*.user
 backend/**/*.suo
 backend/**/*.userosscache
 backend/**/*.sln.docstates
+**/bin/
+**/obj/
 
 # Frontend
 frontend/node_modules/
