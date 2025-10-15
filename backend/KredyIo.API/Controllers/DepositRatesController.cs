@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KredyIo.API.Data;
 using KredyIo.API.Models.Entities;
+using KredyIo.API.Models.DTOs;
 
 namespace KredyIo.API.Controllers;
 
@@ -20,7 +21,7 @@ public class DepositRatesController : ControllerBase
 
     // GET: api/DepositRates
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<DepositRate>>> GetDepositRates(
+    public async Task<ActionResult<IEnumerable<DepositRateDto>>> GetDepositRates(
         [FromQuery] string? currency = null,
         [FromQuery] int? termMonths = null,
         [FromQuery] int? bankId = null,
@@ -49,12 +50,118 @@ public class DepositRatesController : ControllerBase
                 .OrderByDescending(dr => dr.InterestRate)
                 .ToListAsync();
 
-            return Ok(rates);
+            var ratesDtos = rates.Select(dr => new DepositRateDto
+            {
+                Id = dr.Id,
+                BankId = dr.BankId,
+                Bank = new BankDto
+                {
+                    Id = dr.Bank.Id,
+                    Name = dr.Bank.Name,
+                    LogoUrl = dr.Bank.LogoUrl
+                },
+                Currency = dr.Currency,
+                TermMonths = dr.TermMonths,
+                InterestRate = dr.InterestRate,
+                CampaignRate = dr.CampaignRate,
+                CampaignEndDate = dr.CampaignEndDate,
+                MinAmount = dr.MinAmount ?? 0,
+                MaxAmount = dr.MaxAmount ?? 0,
+                HasCampaign = dr.HasCampaign,
+                CampaignDetails = dr.CampaignDetails,
+                IsActive = dr.IsActive,
+                EffectiveDate = dr.EffectiveDate,
+                CreatedAt = dr.CreatedAt,
+                UpdatedAt = dr.UpdatedAt
+            }).ToList();
+
+            return Ok(ratesDtos);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error fetching deposit rates");
             return StatusCode(500, "An error occurred while fetching deposit rates");
+        }
+    }
+
+    // GET: api/DepositRates/filtered
+    [HttpGet("filtered")]
+    public async Task<ActionResult<IEnumerable<DepositRateDto>>> GetFilteredDepositRates(
+        [FromQuery] string? currency = null,
+        [FromQuery] int? termMonths = null,
+        [FromQuery] int? bankId = null,
+        [FromQuery] bool? hasCampaign = null,
+        [FromQuery] decimal? minRate = null,
+        [FromQuery] decimal? maxRate = null,
+        [FromQuery] decimal? minAmount = null,
+        [FromQuery] decimal? maxAmount = null)
+    {
+        try
+        {
+            var query = _context.DepositRates
+                .Include(dr => dr.Bank)
+                .Where(dr => dr.IsActive)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(currency))
+                query = query.Where(dr => dr.Currency == currency);
+
+            if (termMonths.HasValue)
+                query = query.Where(dr => dr.TermMonths == termMonths.Value);
+
+            if (bankId.HasValue)
+                query = query.Where(dr => dr.BankId == bankId.Value);
+
+            if (hasCampaign.HasValue)
+                query = query.Where(dr => dr.HasCampaign == hasCampaign.Value);
+
+            if (minRate.HasValue)
+                query = query.Where(dr => dr.InterestRate >= minRate.Value);
+
+            if (maxRate.HasValue)
+                query = query.Where(dr => dr.InterestRate <= maxRate.Value);
+
+            if (minAmount.HasValue)
+                query = query.Where(dr => dr.MinAmount >= minAmount.Value);
+
+            if (maxAmount.HasValue)
+                query = query.Where(dr => dr.MaxAmount <= maxAmount.Value);
+
+            var rates = await query
+                .OrderByDescending(dr => dr.InterestRate)
+                .ToListAsync();
+
+            var ratesDtos = rates.Select(dr => new DepositRateDto
+            {
+                Id = dr.Id,
+                BankId = dr.BankId,
+                Bank = new BankDto
+                {
+                    Id = dr.Bank.Id,
+                    Name = dr.Bank.Name,
+                    LogoUrl = dr.Bank.LogoUrl
+                },
+                Currency = dr.Currency,
+                TermMonths = dr.TermMonths,
+                InterestRate = dr.InterestRate,
+                CampaignRate = dr.CampaignRate,
+                CampaignEndDate = dr.CampaignEndDate,
+                MinAmount = dr.MinAmount ?? 0,
+                MaxAmount = dr.MaxAmount ?? 0,
+                HasCampaign = dr.HasCampaign,
+                CampaignDetails = dr.CampaignDetails,
+                IsActive = dr.IsActive,
+                EffectiveDate = dr.EffectiveDate,
+                CreatedAt = dr.CreatedAt,
+                UpdatedAt = dr.UpdatedAt
+            }).ToList();
+
+            return Ok(ratesDtos);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching filtered deposit rates");
+            return StatusCode(500, "An error occurred while fetching filtered deposit rates");
         }
     }
 
@@ -133,7 +240,7 @@ public class DepositRatesController : ControllerBase
             foreach (var currency in currencies)
             {
                 var currencyRates = new Dictionary<string, object>();
-                
+
                 foreach (var term in terms)
                 {
                     var topRate = await _context.DepositRates

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KredyIo.API.Data;
 using KredyIo.API.Models.Entities;
+using KredyIo.API.Models.DTOs;
 
 namespace KredyIo.API.Controllers;
 
@@ -87,7 +88,7 @@ public class CampaignsController : ControllerBase
         {
             var campaigns = await _context.Campaigns
                 .Include(c => c.Bank)
-                .Where(c => c.IsActive && c.IsFeatured && 
+                .Where(c => c.IsActive && c.IsFeatured &&
                            c.StartDate <= DateTime.UtcNow && c.EndDate >= DateTime.UtcNow)
                 .OrderBy(c => c.StartDate)
                 .Take(limit)
@@ -99,6 +100,59 @@ public class CampaignsController : ControllerBase
         {
             _logger.LogError(ex, "Error fetching featured campaigns");
             return StatusCode(500, "An error occurred while fetching featured campaigns");
+        }
+    }
+
+    // GET: api/Campaigns/active
+    [HttpGet("active")]
+    public async Task<ActionResult<IEnumerable<CampaignDto>>> GetActiveCampaigns(
+        [FromQuery] string? campaignType = null,
+        [FromQuery] int? bankId = null,
+        [FromQuery] int limit = 20)
+    {
+        try
+        {
+            var query = _context.Campaigns
+                .Include(c => c.Bank)
+                .Where(c => c.IsActive && c.StartDate <= DateTime.UtcNow && c.EndDate >= DateTime.UtcNow)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(campaignType))
+                query = query.Where(c => c.CampaignType == campaignType);
+
+            if (bankId.HasValue)
+                query = query.Where(c => c.BankId == bankId.Value);
+
+            var campaigns = await query
+                .OrderByDescending(c => c.IsFeatured)
+                .ThenByDescending(c => c.StartDate)
+                .Take(limit)
+                .ToListAsync();
+
+            var campaignDtos = campaigns.Select(c => new CampaignDto
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Description = c.Description,
+                CampaignType = c.CampaignType,
+                StartDate = c.StartDate,
+                EndDate = c.EndDate,
+                IsFeatured = c.IsFeatured,
+                IsActive = c.IsActive,
+                Bank = new BankDto
+                {
+                    Id = c.Bank.Id,
+                    Name = c.Bank.Name,
+                    LogoUrl = c.Bank.LogoUrl
+                }
+            }).ToList();
+
+            return Ok(campaignDtos);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching active campaigns");
+            return StatusCode(500, "An error occurred while fetching active campaigns");
         }
     }
 

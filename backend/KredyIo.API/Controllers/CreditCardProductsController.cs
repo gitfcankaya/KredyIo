@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KredyIo.API.Data;
 using KredyIo.API.Models.Entities;
+using KredyIo.API.Models.DTOs;
 
 namespace KredyIo.API.Controllers;
 
@@ -20,7 +21,7 @@ public class CreditCardProductsController : ControllerBase
 
     // GET: api/CreditCardProducts
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CreditCardProduct>>> GetCreditCardProducts(
+    public async Task<ActionResult<IEnumerable<CreditCardProductDto>>> GetCreditCardProducts(
         [FromQuery] string? category = null,
         [FromQuery] int? bankId = null,
         [FromQuery] bool? isPromoted = null,
@@ -62,7 +63,42 @@ public class CreditCardProductsController : ControllerBase
                 .ThenByDescending(cc => cc.IsPromoted)
                 .ToListAsync();
 
-            return Ok(products);
+            var productDtos = products.Select(p => new CreditCardProductDto
+            {
+                Id = p.Id,
+                Name = p.Name ?? "",
+                CardNetwork = p.CardType,
+                CardType = p.CardCategory,
+                AnnualFee = p.AnnualFee,
+                CashbackRate = p.CashbackRate,
+                PointsPerTL = p.PointsPerTL,
+                MilesPerTL = p.MilesPerTL,
+                MinCreditLimit = p.MinCreditLimit ?? 0,
+                MaxCreditLimit = p.MaxCreditLimit ?? 0,
+                AnnualSpendRequirement = p.AnnualSpendRequirement,
+                WelcomeBonusAmount = p.WelcomeBonusAmount,
+                WelcomeBonusConditions = p.WelcomeBonusType,
+                Features = p.Features,
+                Benefits = p.Advantages,
+                Eligibility = p.BenefitsSummary,
+                Description = p.BenefitsSummary,
+                IsFeatured = p.IsFeatured,
+                IsActive = p.IsActive,
+                Bank = new BankDto
+                {
+                    Id = p.Bank.Id,
+                    Name = p.Bank.Name,
+                    Code = p.Bank.Code,
+                    LogoUrl = p.Bank.LogoUrl,
+                    WebsiteUrl = p.Bank.WebsiteUrl,
+                    Rating = p.Bank.Rating,
+                    CustomerCount = p.Bank.CustomerCount,
+                    Description = p.Bank.Description,
+                    IsActive = p.Bank.IsActive
+                }
+            }).ToList();
+
+            return Ok(productDtos);
         }
         catch (Exception ex)
         {

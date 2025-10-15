@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import ProductList from './components/ProductList';
 import LoanList from './components/LoanList';
 import CreditCardList from './components/CreditCardList';
 import DepositRateList from './components/DepositRateList';
@@ -50,12 +49,6 @@ function App() {
                   Kampanyalar
                 </Link>
                 <Link
-                  to="/products"
-                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-                >
-                  Ürünler (Eski)
-                </Link>
-                <Link
                   to="/calculator"
                   className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                 >
@@ -74,7 +67,6 @@ function App() {
             <Route path="/kredi-kartlari" element={<CreditCardList />} />
             <Route path="/mevduat" element={<DepositRateList />} />
             <Route path="/kampanyalar" element={<CampaignList />} />
-            <Route path="/products" element={<ProductList />} />
             <Route path="/calculator" element={<LoanCalculator />} />
           </Routes>
         </main>

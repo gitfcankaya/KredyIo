@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KredyIo.API.Data;
 using KredyIo.API.Models.Entities;
+using KredyIo.API.Models.DTOs;
 
 namespace KredyIo.API.Controllers;
 
@@ -20,7 +21,7 @@ public class LoanProductsController : ControllerBase
 
     // GET: api/LoanProducts
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<LoanProduct>>> GetLoanProducts(
+    public async Task<ActionResult<IEnumerable<LoanProductDto>>> GetLoanProducts(
         [FromQuery] string? loanType = null,
         [FromQuery] int? bankId = null,
         [FromQuery] decimal? minAmount = null,
@@ -61,7 +62,47 @@ public class LoanProductsController : ControllerBase
                 .OrderBy(lp => lp.MinInterestRate)
                 .ToListAsync();
 
-            return Ok(products);
+            var productDtos = products.Select(p => new LoanProductDto
+            {
+                Id = p.Id,
+                Name = p.Name ?? "",
+                ProductName = p.ProductName,
+                LoanType = p.LoanType,
+                MinAmount = p.MinAmount,
+                MaxAmount = p.MaxAmount,
+                MinInterestRate = p.MinInterestRate,
+                MaxInterestRate = p.MaxInterestRate,
+                MinTerm = p.MinTerm,
+                MaxTerm = p.MaxTerm,
+                MinAge = p.MinAge ?? 0,
+                MaxAge = p.MaxAge ?? 0,
+                RequiresCollateral = p.RequiresCollateral,
+                RequiresGuarantor = p.RequiresGuarantor,
+                Purpose = p.Purpose,
+                Description = p.Description,
+                Features = !string.IsNullOrEmpty(p.Features) ?
+                    p.Features.Split(',').Select(f => f.Trim()).ToList() :
+                    new List<string>(),
+                IsPromoted = p.IsPromoted,
+                IsFeatured = p.IsFeatured,
+                IsFirstHomeLoan = p.IsFirstHomeLoan,
+                IsSecondHomeLoan = p.IsSecondHomeLoan,
+                IsActive = p.IsActive,
+                Bank = new BankDto
+                {
+                    Id = p.Bank.Id,
+                    Name = p.Bank.Name,
+                    Code = p.Bank.Code,
+                    LogoUrl = p.Bank.LogoUrl,
+                    WebsiteUrl = p.Bank.WebsiteUrl,
+                    Rating = p.Bank.Rating,
+                    CustomerCount = p.Bank.CustomerCount,
+                    Description = p.Bank.Description,
+                    IsActive = p.Bank.IsActive
+                }
+            }).ToList();
+
+            return Ok(productDtos);
         }
         catch (Exception ex)
         {
@@ -137,14 +178,14 @@ public class LoanProductsController : ControllerBase
                     .OrderBy(lp => lp.MinInterestRate)
                     .Take(3)
                     .ToListAsync(),
-                
+
                 MortgageLoan = await _context.LoanProducts
                     .Include(lp => lp.Bank)
                     .Where(lp => lp.IsActive && lp.LoanType == "MortgageLoan")
                     .OrderBy(lp => lp.MinInterestRate)
                     .Take(3)
                     .ToListAsync(),
-                
+
                 VehicleLoan = await _context.LoanProducts
                     .Include(lp => lp.Bank)
                     .Where(lp => lp.IsActive && lp.LoanType == "VehicleLoan")
