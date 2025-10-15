@@ -1,0 +1,433 @@
+/**
+ * Pages Stylesheet
+ * Common styles for all page templates
+ */
+
+/* ============================================
+   COMMON PAGE STYLES
+   ============================================ */
+
+.page-header {
+  @apply mb-8;
+}
+
+.section-title {
+  @apply text-2xl font-bold text-neutral-900 mb-6;
+}
+
+/* ============================================
+   PRODUCT LISTING PAGE
+   ============================================ */
+
+.products-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6;
+}
+
+.products-list {
+  @apply space-y-4;
+}
+
+.pagination-container {
+  @apply mt-12 flex flex-col items-center gap-4;
+}
+
+.pagination {
+  @apply flex items-center gap-2;
+}
+
+.pagination-btn {
+  @apply p-2 rounded-lg border border-neutral-300 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
+}
+
+.pagination-number {
+  @apply min-w-[40px] h-10 flex items-center justify-center rounded-lg border border-neutral-300 hover:bg-neutral-50 transition-colors font-medium;
+}
+
+.pagination-number.active {
+  @apply bg-primary-600 text-white border-primary-600 hover:bg-primary-700;
+}
+
+.pagination-info {
+  @apply text-sm text-neutral-600;
+}
+
+.mobile-filter-button {
+  @apply fixed bottom-6 right-6 z-30 flex items-center gap-2 px-6 py-3 bg-primary-600 text-white font-medium rounded-full shadow-lg hover:bg-primary-700 transition-all;
+}
+
+/* ============================================
+   PRODUCT DETAIL PAGE
+   ============================================ */
+
+.product-detail-header {
+  @apply mb-12;
+}
+
+.product-detail-image-container {
+  @apply relative rounded-xl overflow-hidden bg-white shadow-card mb-6;
+}
+
+.product-detail-image {
+  @apply w-full h-auto object-cover;
+}
+
+.product-detail-badge {
+  @apply absolute top-4 right-4 px-4 py-2 rounded-full font-semibold text-sm shadow-md;
+}
+
+.product-detail-badge.best {
+  @apply bg-success-500 text-white;
+}
+
+.product-detail-badge.popular {
+  @apply bg-primary-500 text-white;
+}
+
+.product-detail-badge.new {
+  @apply bg-secondary-500 text-white;
+}
+
+.provider-card {
+  @apply flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm border border-neutral-200 mb-6;
+}
+
+.provider-logo {
+  @apply w-16 h-16 object-contain;
+}
+
+.provider-name {
+  @apply font-semibold text-neutral-900;
+}
+
+.provider-rating {
+  @apply flex items-center gap-2 text-sm text-neutral-600;
+}
+
+.rating-value {
+  @apply font-medium;
+}
+
+.rating-count {
+  @apply text-neutral-500;
+}
+
+.product-detail-title {
+  @apply text-3xl font-bold text-neutral-900 mb-4;
+}
+
+.product-detail-description {
+  @apply text-lg text-neutral-700 mb-6;
+}
+
+.product-highlights {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 p-6 bg-neutral-50 rounded-xl;
+}
+
+.highlight-item {
+  @apply text-center;
+}
+
+.highlight-item.campaign {
+  @apply col-span-full bg-warning-100 rounded-lg p-4;
+}
+
+.highlight-label {
+  @apply text-sm text-neutral-600 mb-1;
+}
+
+.highlight-value {
+  @apply text-2xl font-bold text-primary-600;
+}
+
+.highlight-item.campaign .highlight-value {
+  @apply text-warning-700;
+}
+
+.product-detail-cta {
+  @apply flex flex-wrap gap-3 mb-6;
+}
+
+.product-detail-tabs {
+  @apply mt-12;
+}
+
+.tabs-header {
+  @apply flex border-b border-neutral-200 mb-6 overflow-x-auto;
+}
+
+.tab-button {
+  @apply flex items-center gap-2 px-6 py-3 font-medium text-neutral-600 border-b-2 border-transparent hover:text-neutral-900 transition-colors whitespace-nowrap;
+}
+
+.tab-button.active {
+  @apply text-primary-600 border-primary-600;
+}
+
+.tab-icon {
+  @apply text-xl;
+}
+
+.tab-panel {
+  @apply py-6;
+}
+
+.prose {
+  @apply text-neutral-700 leading-relaxed;
+}
+
+.prose h3 {
+  @apply text-xl font-bold text-neutral-900 mt-6 mb-3;
+}
+
+.prose ul {
+  @apply list-disc list-inside space-y-2 mb-6;
+}
+
+.features-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.feature-item {
+  @apply flex items-center gap-3 p-4 bg-neutral-50 rounded-lg;
+}
+
+.feature-icon {
+  @apply flex-shrink-0 text-success-600;
+}
+
+.testimonials-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+}
+
+.faq-section {
+  @apply mt-12 p-8 bg-neutral-50 rounded-xl;
+}
+
+/* ============================================
+   CALCULATOR HUB PAGE
+   ============================================ */
+
+.calculator-menu {
+  @apply bg-white rounded-xl shadow-card p-4 mb-6;
+}
+
+.calculator-menu-title {
+  @apply text-lg font-bold text-neutral-900 mb-4 px-2;
+}
+
+.calculator-menu-list {
+  @apply space-y-2;
+}
+
+.calculator-menu-item {
+  @apply w-full flex items-start gap-3 p-3 rounded-lg text-left transition-all hover:bg-primary-50;
+}
+
+.calculator-menu-item.active {
+  @apply bg-primary-100 shadow-sm;
+}
+
+.calculator-menu-icon {
+  @apply text-2xl flex-shrink-0;
+}
+
+.calculator-menu-content {
+  @apply flex-1 min-w-0;
+}
+
+.calculator-menu-name {
+  @apply font-medium text-neutral-900 mb-1 flex items-center gap-2;
+}
+
+.calculator-menu-badge {
+  @apply px-2 py-0.5 bg-primary-200 text-primary-700 text-xs font-medium rounded-full;
+}
+
+.calculator-menu-description {
+  @apply text-sm text-neutral-600;
+}
+
+.calculator-tips {
+  @apply bg-white rounded-xl shadow-card p-4;
+}
+
+.calculator-tips-title {
+  @apply font-semibold text-neutral-900 mb-3;
+}
+
+.calculator-tips-list {
+  @apply space-y-2 text-sm text-neutral-700;
+}
+
+.calculator-tips-list li {
+  @apply flex items-start gap-2;
+}
+
+.calculator-tips-list li::before {
+  content: '→';
+  @apply text-primary-600 font-bold;
+}
+
+.calculator-content {
+  @apply bg-white rounded-xl shadow-card p-6;
+}
+
+.calculator-header {
+  @apply flex items-start justify-between mb-6 pb-6 border-b border-neutral-200;
+}
+
+.calculator-title {
+  @apply text-2xl font-bold text-neutral-900 flex items-center gap-3;
+}
+
+.calculator-icon {
+  @apply text-3xl;
+}
+
+.calculator-description {
+  @apply text-neutral-700 mt-2;
+}
+
+.calculator-info-grid {
+  @apply grid md:grid-cols-2 gap-4 mt-6;
+}
+
+.popular-calculators-section {
+  @apply mt-16 pt-16 border-t border-neutral-200;
+}
+
+.popular-calculators-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.popular-calculator-card {
+  @apply p-6 bg-white rounded-xl shadow-card hover:shadow-card-hover transition-shadow text-left;
+}
+
+.popular-calculator-icon {
+  @apply text-4xl mb-4;
+}
+
+.popular-calculator-title {
+  @apply text-xl font-bold text-neutral-900 mb-2;
+}
+
+.popular-calculator-description {
+  @apply text-neutral-700 mb-4;
+}
+
+.popular-calculator-link {
+  @apply text-primary-600 font-medium hover:text-primary-700;
+}
+
+/* ============================================
+   COMPARISON PAGE
+   ============================================ */
+
+.comparison-header {
+  @apply mb-8;
+}
+
+.comparison-footer {
+  @apply mt-12;
+}
+
+.comparison-tips {
+  @apply mt-12;
+}
+
+.tips-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.tip-card {
+  @apply p-6 bg-white rounded-xl shadow-card text-center;
+}
+
+.tip-icon {
+  @apply text-4xl mb-4;
+}
+
+.tip-title {
+  @apply text-lg font-bold text-neutral-900 mb-2;
+}
+
+.tip-description {
+  @apply text-neutral-700 text-sm;
+}
+
+/* ============================================
+   HOME PAGE
+   ============================================ */
+
+.categories-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.category-card {
+  @apply p-8 rounded-xl shadow-card hover:shadow-card-hover transition-all text-center block;
+}
+
+.category-icon {
+  @apply text-5xl mb-4;
+}
+
+.category-title {
+  @apply text-xl font-bold mb-2;
+}
+
+.category-description {
+  @apply text-sm mb-4 opacity-80;
+}
+
+.category-link {
+  @apply font-medium;
+}
+
+.feature-card {
+  @apply p-8 bg-white rounded-xl shadow-card text-center;
+}
+
+.feature-icon-large {
+  @apply text-5xl mb-4;
+}
+
+.feature-title {
+  @apply text-xl font-bold text-neutral-900 mb-2;
+}
+
+.feature-description {
+  @apply text-neutral-700;
+}
+
+.blog-posts-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+.btn-primary-lg {
+  @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all shadow-md hover:shadow-lg;
+}
+
+.btn-secondary-lg {
+  @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-neutral-100 text-neutral-900 font-semibold rounded-xl hover:bg-neutral-200 transition-all;
+}
+
+.btn-ghost-lg {
+  @apply inline-flex items-center justify-center gap-2 px-8 py-4 text-neutral-700 font-semibold rounded-xl hover:bg-neutral-100 transition-all;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-neutral-100 text-neutral-900 font-medium rounded-lg hover:bg-neutral-200 transition-all;
+}
+
+.btn-white-lg {
+  @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-primary-600 font-semibold rounded-xl hover:bg-neutral-50 transition-all shadow-md;
+}
+
+.btn-outline-white-lg {
+  @apply inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white/10 transition-all;
+}

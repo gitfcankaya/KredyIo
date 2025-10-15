@@ -1,0 +1,272 @@
+/**
+ * ProductCard Component Styles
+ * Based on patterns from HesapKurdu.com analysis
+ * 
+ * Tailwind-first approach with custom utility classes
+ */
+
+/* Base Product Card */
+.product-card {
+  @apply relative bg-white rounded-lg border border-gray-200 p-6;
+  @apply transition-all duration-300 ease-in-out;
+  @apply hover:shadow-xl hover:border-primary-300;
+}
+
+.product-card.compact {
+  @apply p-4;
+}
+
+.product-card.detailed {
+  @apply p-8;
+}
+
+.product-card.comparing {
+  @apply border-2 border-primary-500 bg-primary-50;
+}
+
+/* Header Section */
+.product-card-header {
+  @apply flex items-center gap-4 mb-6;
+}
+
+.bank-logo {
+  @apply w-16 h-16 rounded-full border border-gray-100;
+  @apply object-contain p-2 bg-white flex-shrink-0;
+}
+
+.provider-info {
+  @apply flex-1 min-w-0;
+}
+
+.product-title {
+  @apply text-lg font-semibold text-gray-900 truncate;
+}
+
+.product-subtitle {
+  @apply text-sm text-gray-600 mt-1;
+}
+
+/* Primary Metric Display */
+.primary-metric-container {
+  @apply text-center py-4 mb-4 border-b border-gray-100;
+}
+
+.primary-metric {
+  @apply text-4xl md:text-5xl font-bold text-primary-600;
+  @apply leading-none;
+}
+
+.primary-metric-label {
+  @apply text-sm text-gray-600 mt-2;
+}
+
+.secondary-metric {
+  @apply text-lg font-medium text-gray-700 mt-3;
+}
+
+/* Badges */
+.badge {
+  @apply px-3 py-1.5 rounded-full text-xs font-medium;
+  @apply shadow-sm backdrop-blur-sm;
+}
+
+.badge-sponsor {
+  @apply bg-yellow-100 text-yellow-800 border border-yellow-200;
+}
+
+.badge-popular {
+  @apply bg-blue-100 text-blue-800 border border-blue-200;
+}
+
+.badge-new {
+  @apply bg-green-100 text-green-800 border border-green-200;
+}
+
+.badge-best {
+  @apply bg-purple-100 text-purple-800 border border-purple-200;
+}
+
+.badge-promotion {
+  @apply bg-red-100 text-red-800 border border-red-200;
+}
+
+/* Feature Pills (Horizontal Scrolling) */
+.feature-pills {
+  @apply flex gap-2 overflow-x-auto pb-2 mb-4;
+  @apply scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.feature-pills::-webkit-scrollbar {
+  height: 4px;
+}
+
+.feature-pills::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.feature-pills::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+.feature-pills::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+.feature-pill {
+  @apply bg-gray-50 text-gray-700 px-3 py-1.5 rounded-full;
+  @apply text-sm whitespace-nowrap flex-shrink-0;
+  @apply hover:bg-gray-100 transition-colors;
+}
+
+/* Benefits */
+.benefits-container {
+  @apply space-y-3 mb-4;
+}
+
+.benefit-item {
+  @apply flex items-center gap-3 text-sm text-gray-700;
+}
+
+.benefit-icon {
+  @apply w-5 h-5 flex-shrink-0;
+}
+
+.benefit-text {
+  @apply flex-1;
+}
+
+/* Description */
+.product-description {
+  @apply mt-4 p-4 bg-gray-50 rounded-lg;
+  @apply text-sm text-gray-700 leading-relaxed;
+}
+
+/* Action Buttons */
+.product-card-actions {
+  @apply flex flex-col sm:flex-row gap-3 mt-6;
+}
+
+.cta-primary {
+  @apply flex-1 bg-primary-600 hover:bg-primary-700 text-white;
+  @apply px-6 py-3 rounded-lg font-medium;
+  @apply transition-colors duration-200;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+}
+
+.cta-secondary {
+  @apply flex-1 bg-white border border-primary-600 text-primary-600;
+  @apply px-6 py-3 rounded-lg font-medium;
+  @apply hover:bg-primary-50 transition-colors duration-200;
+  @apply flex items-center justify-center gap-2;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+}
+
+.cta-secondary.active {
+  @apply bg-primary-600 text-white border-primary-600;
+  @apply hover:bg-primary-700;
+}
+
+.cta-details {
+  @apply w-full sm:w-auto text-primary-600 hover:text-primary-700;
+  @apply px-4 py-2 text-sm font-medium;
+  @apply flex items-center justify-center gap-2;
+  @apply transition-colors duration-200;
+}
+
+.chevron {
+  @apply transition-transform duration-300;
+}
+
+.chevron.rotated {
+  @apply rotate-180;
+}
+
+/* Disclaimer & Validity */
+.product-disclaimer,
+.product-validity {
+  @apply mt-4 pt-4 border-t border-gray-100;
+  @apply text-xs text-gray-500 text-center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .product-card {
+    @apply p-4;
+  }
+  
+  .bank-logo {
+    @apply w-12 h-12;
+  }
+  
+  .product-title {
+    @apply text-base;
+  }
+  
+  .primary-metric {
+    @apply text-3xl;
+  }
+  
+  .product-card-actions {
+    @apply flex-col;
+  }
+}
+
+/* Compact Variant */
+.product-card.compact .product-card-header {
+  @apply gap-3 mb-4;
+}
+
+.product-card.compact .bank-logo {
+  @apply w-12 h-12;
+}
+
+.product-card.compact .primary-metric-container {
+  @apply py-3 mb-3;
+}
+
+.product-card.compact .primary-metric {
+  @apply text-3xl;
+}
+
+.product-card.compact .product-card-actions {
+  @apply mt-4;
+}
+
+/* Detailed Variant */
+.product-card.detailed .bank-logo {
+  @apply w-20 h-20;
+}
+
+.product-card.detailed .primary-metric {
+  @apply text-5xl md:text-6xl;
+}
+
+.product-card.detailed .benefits-container {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-3;
+}
+
+/* Animation for comparison mode */
+@keyframes pulse-border {
+  0%, 100% {
+    @apply border-primary-500;
+  }
+  50% {
+    @apply border-primary-300;
+  }
+}
+
+.product-card.comparing {
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+/* Loading State */
+.product-card.loading {
+  @apply pointer-events-none opacity-60;
+}
+
+.product-card.loading .cta-primary {
+  @apply animate-pulse;
+}

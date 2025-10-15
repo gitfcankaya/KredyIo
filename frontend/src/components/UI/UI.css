@@ -1,0 +1,662 @@
+/**
+ * UI Components Stylesheet
+ * Comprehensive styles for all UI components
+ */
+
+/* ============================================
+   COMPARISON TABLE
+   ============================================ */
+
+.comparison-table-container {
+  @apply w-full overflow-x-auto relative;
+}
+
+.comparison-table-container.scrolled {
+  @apply shadow-lg;
+}
+
+.comparison-table {
+  @apply w-full border-collapse;
+  min-width: 800px;
+}
+
+.comparison-table-header {
+  @apply bg-white border-b-2 border-neutral-200;
+}
+
+.comparison-table-header.sticky {
+  @apply sticky top-0 z-20 shadow-md;
+}
+
+.comparison-product-card {
+  @apply p-6 text-center;
+}
+
+.comparison-product-remove {
+  @apply absolute top-2 right-2 p-1 text-neutral-400 hover:text-danger-600 transition-colors rounded-full hover:bg-danger-50;
+}
+
+.comparison-product-logo {
+  @apply w-16 h-16 mx-auto mb-4 rounded-lg object-contain bg-white p-2 shadow-sm;
+}
+
+.comparison-product-name {
+  @apply text-lg font-semibold text-neutral-900 mb-1;
+}
+
+.comparison-product-provider {
+  @apply text-sm text-neutral-600 mb-2;
+}
+
+.comparison-product-badge {
+  @apply inline-block px-3 py-1 text-xs font-medium rounded-full mb-4;
+}
+
+.comparison-product-badge.best {
+  @apply bg-success-100 text-success-700;
+}
+
+.comparison-product-badge.popular {
+  @apply bg-primary-100 text-primary-700;
+}
+
+.comparison-product-badge.new {
+  @apply bg-secondary-100 text-secondary-700;
+}
+
+.comparison-pricing {
+  @apply mb-4;
+}
+
+.comparison-price-main {
+  @apply text-2xl font-bold text-primary-600;
+}
+
+.comparison-price-period {
+  @apply text-sm text-neutral-600 ml-1;
+}
+
+.comparison-price-description {
+  @apply text-xs text-neutral-500 mt-1;
+}
+
+.comparison-cta {
+  @apply w-full px-4 py-2 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors shadow-sm hover:shadow-md;
+}
+
+.comparison-table-body tr {
+  @apply border-b border-neutral-100 hover:bg-neutral-50 transition-colors;
+}
+
+.comparison-category-header {
+  @apply bg-neutral-100 font-semibold text-neutral-900 p-4 text-left;
+}
+
+.comparison-feature-label {
+  @apply font-medium text-neutral-900 p-4 text-left;
+}
+
+.comparison-feature-label.sticky {
+  @apply sticky left-0 bg-white z-10;
+}
+
+.comparison-feature-tooltip {
+  @apply ml-2 inline-flex items-center text-neutral-400 hover:text-neutral-600;
+}
+
+.comparison-feature-value {
+  @apply p-4 text-center;
+}
+
+.comparison-feature-value.highlighted {
+  @apply bg-success-50 font-medium text-success-700;
+}
+
+.comparison-feature-icon {
+  @apply w-5 h-5 mx-auto text-success-600;
+}
+
+.comparison-feature-icon.check {
+  @apply text-success-600;
+}
+
+.comparison-feature-icon.cross {
+  @apply text-danger-600;
+}
+
+.comparison-add-product {
+  @apply p-6 text-center border-2 border-dashed border-neutral-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-all cursor-pointer;
+}
+
+.comparison-add-product-icon {
+  @apply w-12 h-12 mx-auto text-neutral-400 mb-2;
+}
+
+.comparison-add-product-text {
+  @apply text-sm font-medium text-neutral-600;
+}
+
+.comparison-scroll-hint {
+  @apply text-center text-sm text-neutral-500 py-4 md:hidden;
+}
+
+/* ============================================
+   TRUST BADGES
+   ============================================ */
+
+.trust-badges {
+  @apply flex gap-4;
+}
+
+.trust-badges.horizontal {
+  @apply flex-row items-center;
+}
+
+.trust-badges.vertical {
+  @apply flex-col items-start;
+}
+
+.trust-badges.grid {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-4;
+}
+
+.trust-badge {
+  @apply flex items-center gap-2 p-2 rounded-lg transition-all hover:bg-neutral-50;
+}
+
+.trust-badges.sm .trust-badge {
+  @apply text-xs;
+}
+
+.trust-badges.md .trust-badge {
+  @apply text-sm;
+}
+
+.trust-badges.lg .trust-badge {
+  @apply text-base;
+}
+
+.trust-badge-link {
+  @apply flex items-center gap-2 hover:opacity-80 transition-opacity;
+}
+
+.trust-badge-image {
+  @apply h-8 w-auto object-contain;
+}
+
+.trust-badges.sm .trust-badge-image {
+  @apply h-6;
+}
+
+.trust-badges.lg .trust-badge-image {
+  @apply h-10;
+}
+
+.trust-badge-icon {
+  @apply h-5 w-5;
+}
+
+.trust-badge-text {
+  @apply font-medium text-neutral-700;
+}
+
+.trust-badge-description {
+  @apply text-xs text-neutral-600 mt-1;
+}
+
+/* ============================================
+   INFO CARD
+   ============================================ */
+
+.info-card {
+  @apply rounded-lg p-4 border;
+}
+
+.info-card.info.filled {
+  @apply bg-primary-100 border-primary-200 text-primary-900;
+}
+
+.info-card.info.outlined {
+  @apply bg-white border-primary-300 text-primary-900;
+}
+
+.info-card.info.subtle {
+  @apply bg-primary-50 border-primary-100 text-primary-900;
+}
+
+.info-card.success.filled {
+  @apply bg-success-100 border-success-200 text-success-900;
+}
+
+.info-card.success.outlined {
+  @apply bg-white border-success-300 text-success-900;
+}
+
+.info-card.success.subtle {
+  @apply bg-success-50 border-success-100 text-success-900;
+}
+
+.info-card.warning.filled {
+  @apply bg-warning-100 border-warning-200 text-warning-900;
+}
+
+.info-card.warning.outlined {
+  @apply bg-white border-warning-300 text-warning-900;
+}
+
+.info-card.warning.subtle {
+  @apply bg-warning-50 border-warning-100 text-warning-900;
+}
+
+.info-card.danger.filled {
+  @apply bg-danger-100 border-danger-200 text-danger-900;
+}
+
+.info-card.danger.outlined {
+  @apply bg-white border-danger-300 text-danger-900;
+}
+
+.info-card.danger.subtle {
+  @apply bg-danger-50 border-danger-100 text-danger-900;
+}
+
+.info-card.neutral.filled {
+  @apply bg-neutral-100 border-neutral-200 text-neutral-900;
+}
+
+.info-card.neutral.outlined {
+  @apply bg-white border-neutral-300 text-neutral-900;
+}
+
+.info-card.neutral.subtle {
+  @apply bg-neutral-50 border-neutral-100 text-neutral-900;
+}
+
+.info-card-content {
+  @apply flex gap-3;
+}
+
+.info-card-icon {
+  @apply flex-shrink-0 w-6 h-6;
+}
+
+.info-card.info .info-card-icon {
+  @apply text-primary-600;
+}
+
+.info-card.success .info-card-icon {
+  @apply text-success-600;
+}
+
+.info-card.warning .info-card-icon {
+  @apply text-warning-600;
+}
+
+.info-card.danger .info-card-icon {
+  @apply text-danger-600;
+}
+
+.info-card.neutral .info-card-icon {
+  @apply text-neutral-600;
+}
+
+.info-card-body {
+  @apply flex-1;
+}
+
+.info-card-title {
+  @apply font-semibold text-base mb-1;
+}
+
+.info-card-description {
+  @apply text-sm opacity-90;
+}
+
+.info-card-close {
+  @apply flex-shrink-0 w-5 h-5 opacity-70 hover:opacity-100 transition-opacity;
+}
+
+.info-card-footer {
+  @apply mt-3 pt-3 border-t border-current opacity-70;
+}
+
+/* ============================================
+   FEATURE PILLS
+   ============================================ */
+
+.feature-pills {
+  @apply flex flex-wrap gap-2;
+}
+
+.feature-pill {
+  @apply inline-flex items-center gap-1.5 rounded-full font-medium transition-all;
+}
+
+.feature-pills.xs .feature-pill {
+  @apply px-2 py-0.5 text-xs;
+}
+
+.feature-pills.sm .feature-pill {
+  @apply px-2.5 py-1 text-xs;
+}
+
+.feature-pills.md .feature-pill {
+  @apply px-3 py-1.5 text-sm;
+}
+
+.feature-pills.lg .feature-pill {
+  @apply px-4 py-2 text-base;
+}
+
+.feature-pill.primary {
+  @apply bg-primary-100 text-primary-700 hover:bg-primary-200;
+}
+
+.feature-pill.secondary {
+  @apply bg-secondary-100 text-secondary-700 hover:bg-secondary-200;
+}
+
+.feature-pill.success {
+  @apply bg-success-100 text-success-700 hover:bg-success-200;
+}
+
+.feature-pill.warning {
+  @apply bg-warning-100 text-warning-700 hover:bg-warning-200;
+}
+
+.feature-pill.danger {
+  @apply bg-danger-100 text-danger-700 hover:bg-danger-200;
+}
+
+.feature-pill.neutral {
+  @apply bg-neutral-100 text-neutral-700 hover:bg-neutral-200;
+}
+
+.feature-pill.clickable {
+  @apply cursor-pointer;
+}
+
+.feature-pill-icon {
+  @apply w-4 h-4;
+}
+
+.feature-pill-label {
+  @apply truncate;
+}
+
+.feature-pill-remove {
+  @apply -mr-1 w-3.5 h-3.5 hover:bg-black/10 rounded-full transition-colors;
+}
+
+.feature-pill-more {
+  @apply bg-neutral-200 text-neutral-700 hover:bg-neutral-300 cursor-pointer;
+}
+
+/* ============================================
+   BLOG POST CARD
+   ============================================ */
+
+.blog-post-card {
+  @apply rounded-xl overflow-hidden bg-white shadow-card hover:shadow-card-hover transition-shadow;
+}
+
+.blog-post-card.featured {
+  @apply ring-2 ring-primary-500;
+}
+
+.blog-post-card.horizontal {
+  @apply flex;
+}
+
+.blog-post-card.horizontal .blog-post-image {
+  @apply w-1/3 flex-shrink-0;
+}
+
+.blog-post-card.vertical .blog-post-image {
+  @apply w-full;
+}
+
+.blog-post-card.compact .blog-post-image {
+  @apply h-40;
+}
+
+.blog-post-link {
+  @apply block h-full;
+}
+
+.blog-post-image {
+  @apply relative overflow-hidden bg-neutral-100;
+}
+
+.blog-post-image img {
+  @apply w-full h-full object-cover transition-transform duration-300 hover:scale-105;
+}
+
+.blog-post-featured-badge {
+  @apply absolute top-3 right-3 px-3 py-1 bg-primary-600 text-white text-xs font-medium rounded-full;
+}
+
+.blog-post-content {
+  @apply p-6;
+}
+
+.blog-post-header {
+  @apply flex items-center justify-between mb-3;
+}
+
+.blog-post-category {
+  @apply text-sm font-semibold uppercase tracking-wide;
+}
+
+.blog-post-meta {
+  @apply flex items-center gap-2 text-xs text-neutral-600;
+}
+
+.blog-post-separator {
+  @apply text-neutral-400;
+}
+
+.blog-post-title {
+  @apply text-xl font-bold text-neutral-900 mb-3 hover:text-primary-600 transition-colors;
+}
+
+.blog-post-excerpt {
+  @apply text-neutral-700 mb-4 line-clamp-3;
+}
+
+.blog-post-tags {
+  @apply flex flex-wrap gap-2 mb-4;
+}
+
+.blog-post-tag {
+  @apply text-xs text-primary-600 hover:text-primary-700;
+}
+
+.blog-post-author {
+  @apply flex items-center gap-3 pt-4 border-t border-neutral-100;
+}
+
+.blog-post-author-avatar {
+  @apply w-10 h-10 rounded-full object-cover;
+}
+
+.blog-post-author-name {
+  @apply text-sm font-medium text-neutral-900;
+}
+
+.blog-post-author-title {
+  @apply text-xs text-neutral-600;
+}
+
+/* ============================================
+   TESTIMONIAL CARD
+   ============================================ */
+
+.testimonial-card {
+  @apply rounded-xl bg-white p-6 shadow-card;
+}
+
+.testimonial-card.featured {
+  @apply bg-gradient-to-br from-primary-50 to-secondary-50 shadow-lg;
+}
+
+.testimonial-card.compact {
+  @apply p-4;
+}
+
+.testimonial-content {
+  @apply mb-4;
+}
+
+.testimonial-quote-icon {
+  @apply text-primary-200 mb-3;
+}
+
+.testimonial-text {
+  @apply text-neutral-700 text-base leading-relaxed mb-3;
+}
+
+.testimonial-rating {
+  @apply flex gap-1;
+}
+
+.testimonial-star {
+  @apply transition-colors;
+}
+
+.testimonial-star.filled {
+  @apply text-warning-500;
+}
+
+.testimonial-star.empty {
+  @apply text-neutral-300;
+}
+
+.testimonial-footer {
+  @apply flex items-center justify-between pt-4 border-t border-neutral-100;
+}
+
+.testimonial-author {
+  @apply flex items-center gap-3;
+}
+
+.testimonial-author-avatar {
+  @apply w-12 h-12 rounded-full object-cover;
+}
+
+.testimonial-author-name {
+  @apply flex items-center gap-2 text-sm font-semibold text-neutral-900;
+}
+
+.testimonial-verified {
+  @apply text-primary-600;
+}
+
+.testimonial-author-title {
+  @apply text-xs text-neutral-600;
+}
+
+.testimonial-author-company {
+  @apply text-xs text-neutral-500;
+}
+
+.testimonial-date {
+  @apply text-xs text-neutral-500;
+}
+
+/* ============================================
+   FAQ ACCORDION
+   ============================================ */
+
+.faq-accordion {
+  @apply space-y-4;
+}
+
+.faq-search {
+  @apply relative mb-6;
+}
+
+.faq-search-input {
+  @apply w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+}
+
+.faq-search-icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400;
+}
+
+.faq-category {
+  @apply mb-8;
+}
+
+.faq-category-title {
+  @apply text-xl font-bold text-neutral-900 mb-4;
+}
+
+.faq-items {
+  @apply space-y-2;
+}
+
+.faq-item {
+  @apply border border-neutral-200 rounded-lg overflow-hidden transition-all;
+}
+
+.faq-item.open {
+  @apply shadow-md;
+}
+
+.faq-question {
+  @apply w-full flex items-center justify-between gap-4 p-4 text-left font-medium text-neutral-900 hover:bg-neutral-50 transition-colors;
+}
+
+.faq-question-text {
+  @apply flex-1;
+}
+
+.faq-chevron {
+  @apply flex-shrink-0 text-neutral-400 transition-transform;
+}
+
+.faq-item.open .faq-chevron {
+  @apply rotate-180;
+}
+
+.faq-answer {
+  @apply overflow-hidden transition-all duration-300 ease-in-out;
+  max-height: 0;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 1000px;
+}
+
+.faq-answer-content {
+  @apply p-4 pt-0 text-neutral-700 leading-relaxed;
+}
+
+.faq-helpful {
+  @apply flex items-center gap-4 px-4 pb-4 pt-2 border-t border-neutral-100 mt-4;
+}
+
+.faq-helpful-text {
+  @apply text-sm text-neutral-600;
+}
+
+.faq-helpful-buttons {
+  @apply flex gap-2;
+}
+
+.faq-helpful-btn {
+  @apply flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors;
+}
+
+.faq-helpful-btn.yes {
+  @apply bg-success-100 text-success-700 hover:bg-success-200;
+}
+
+.faq-helpful-btn.no {
+  @apply bg-danger-100 text-danger-700 hover:bg-danger-200;
+}
+
+.faq-empty {
+  @apply text-center py-12 text-neutral-600;
+}

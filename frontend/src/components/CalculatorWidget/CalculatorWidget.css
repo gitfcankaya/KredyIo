@@ -1,0 +1,456 @@
+/**
+ * CalculatorWidget Styles
+ * Universal calculator component styling
+ * 
+ * Layout variations:
+ * - inline: Compact horizontal layout
+ * - card: Standard card with shadow
+ * - fullpage: Full-width page layout
+ * - modal: Modal overlay layout
+ */
+
+/* ============================================
+   Base Calculator Styles
+   ============================================ */
+
+.calculator-widget {
+  @apply w-full;
+}
+
+.calculator-container {
+  @apply bg-white rounded-lg;
+}
+
+/* ============================================
+   Layout Variations
+   ============================================ */
+
+.calculator-widget.card .calculator-container {
+  @apply p-6 shadow-lg border border-gray-200;
+}
+
+.calculator-widget.inline .calculator-container {
+  @apply p-4 border border-gray-200 rounded-lg;
+}
+
+.calculator-widget.fullpage .calculator-container {
+  @apply p-8 max-w-4xl mx-auto;
+}
+
+.calculator-widget.modal .calculator-container {
+  @apply p-6 max-w-2xl mx-auto shadow-2xl;
+}
+
+/* ============================================
+   Theme Variations
+   ============================================ */
+
+.calculator-widget.dark .calculator-container {
+  @apply bg-gray-900 text-white border-gray-700;
+}
+
+.calculator-widget.gradient .calculator-container {
+  @apply bg-gradient-to-br from-blue-50 to-indigo-50;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+.calculator-header {
+  @apply flex items-start gap-4 mb-6 pb-6 border-b border-gray-200;
+}
+
+.calculator-icon {
+  @apply w-12 h-12 object-contain flex-shrink-0;
+}
+
+.calculator-title-group {
+  @apply flex-1;
+}
+
+.calculator-title {
+  @apply text-2xl font-bold text-gray-900 mb-2;
+}
+
+.calculator-description {
+  @apply text-sm text-gray-600;
+}
+
+/* ============================================
+   Content & Inputs
+   ============================================ */
+
+.calculator-content {
+  @apply space-y-6;
+}
+
+.calculator-inputs {
+  @apply space-y-6;
+}
+
+.calculator-input-group {
+  @apply space-y-2;
+}
+
+.calculator-label {
+  @apply flex items-center gap-2;
+  @apply text-sm font-semibold text-gray-700;
+}
+
+.calculator-tooltip {
+  @apply inline-flex items-center justify-center;
+  @apply w-4 h-4 rounded-full;
+  @apply text-gray-400 hover:text-gray-600;
+  @apply cursor-help transition-colors;
+}
+
+/* ============================================
+   Slider Input
+   ============================================ */
+
+.calculator-slider-container {
+  @apply space-y-3;
+}
+
+.calculator-slider-value {
+  @apply text-2xl font-bold text-blue-600 text-center;
+  @apply py-2 px-4 bg-blue-50 rounded-lg;
+}
+
+.calculator-slider {
+  @apply w-full h-2 rounded-lg;
+  @apply appearance-none bg-gray-200;
+  @apply cursor-pointer;
+}
+
+.calculator-slider::-webkit-slider-thumb {
+  @apply appearance-none;
+  @apply w-5 h-5 rounded-full;
+  @apply bg-blue-600 border-2 border-white;
+  @apply shadow-lg cursor-pointer;
+  @apply transition-all duration-150;
+}
+
+.calculator-slider::-webkit-slider-thumb:hover {
+  @apply w-6 h-6 bg-blue-700;
+}
+
+.calculator-slider::-moz-range-thumb {
+  @apply w-5 h-5 rounded-full;
+  @apply bg-blue-600 border-2 border-white;
+  @apply shadow-lg cursor-pointer;
+  @apply transition-all duration-150;
+}
+
+.calculator-slider::-moz-range-thumb:hover {
+  @apply w-6 h-6 bg-blue-700;
+}
+
+.calculator-slider::-webkit-slider-runnable-track {
+  @apply w-full h-2 rounded-lg bg-gray-200;
+}
+
+.calculator-slider::-moz-range-track {
+  @apply w-full h-2 rounded-lg bg-gray-200;
+}
+
+.calculator-slider-labels {
+  @apply flex items-center justify-between;
+  @apply text-xs text-gray-500;
+}
+
+/* ============================================
+   Text Input
+   ============================================ */
+
+.calculator-input-wrapper {
+  @apply relative flex items-center;
+}
+
+.calculator-input {
+  @apply flex-1 px-4 py-3;
+  @apply border border-gray-300 rounded-lg;
+  @apply text-lg font-medium text-gray-900;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  @apply transition-all duration-200;
+}
+
+.calculator-input-prefix,
+.calculator-input-suffix {
+  @apply absolute px-3 text-gray-500 font-medium;
+  @apply pointer-events-none;
+}
+
+.calculator-input-prefix {
+  @apply left-0;
+}
+
+.calculator-input-suffix {
+  @apply right-0;
+}
+
+.calculator-input-unit {
+  @apply ml-2 text-gray-500 font-medium;
+}
+
+/* ============================================
+   Select Input
+   ============================================ */
+
+.calculator-select {
+  @apply w-full px-4 py-3;
+  @apply border border-gray-300 rounded-lg;
+  @apply text-lg font-medium text-gray-900;
+  @apply bg-white cursor-pointer;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  @apply transition-all duration-200;
+}
+
+/* ============================================
+   Error States
+   ============================================ */
+
+.calculator-error {
+  @apply text-sm text-red-600 mt-1;
+}
+
+.calculator-error-banner {
+  @apply p-4 rounded-lg;
+  @apply bg-red-50 border border-red-200;
+  @apply text-sm text-red-700;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.calculator-button {
+  @apply px-6 py-3 rounded-lg;
+  @apply font-semibold text-sm;
+  @apply transition-all duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.calculator-button.primary {
+  @apply bg-blue-600 text-white;
+  @apply hover:bg-blue-700;
+  @apply shadow-md hover:shadow-lg;
+  @apply focus:ring-blue-500;
+}
+
+.calculator-button.primary:disabled {
+  @apply opacity-50 cursor-not-allowed;
+  @apply hover:bg-blue-600 hover:shadow-md;
+}
+
+.calculator-button.secondary {
+  @apply bg-white text-gray-700;
+  @apply border border-gray-300;
+  @apply hover:bg-gray-50;
+  @apply focus:ring-gray-500;
+}
+
+/* ============================================
+   Results Section
+   ============================================ */
+
+.calculator-results {
+  @apply mt-6 pt-6 border-t border-gray-200;
+}
+
+.calculator-result-summary {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+}
+
+.calculator-result-item {
+  @apply p-4 rounded-lg;
+  @apply bg-gray-50 border border-gray-200;
+  @apply flex flex-col gap-2;
+}
+
+.calculator-result-item.emphasis {
+  @apply bg-blue-50 border-blue-200;
+  @apply ring-2 ring-blue-100;
+}
+
+.result-label {
+  @apply text-sm font-medium text-gray-600;
+}
+
+.calculator-result-item.emphasis .result-label {
+  @apply text-blue-700;
+}
+
+.result-value {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.calculator-result-item.emphasis .result-value {
+  @apply text-3xl text-blue-600;
+}
+
+/* ============================================
+   Toggle Breakdown Button
+   ============================================ */
+
+.calculator-toggle-breakdown {
+  @apply mt-4 w-full px-4 py-3;
+  @apply text-sm font-medium text-blue-600;
+  @apply border border-blue-200 rounded-lg;
+  @apply hover:bg-blue-50;
+  @apply transition-colors duration-200;
+}
+
+/* ============================================
+   Footer & Actions
+   ============================================ */
+
+.calculator-footer {
+  @apply mt-6 pt-6 border-t border-gray-200;
+}
+
+.calculator-actions {
+  @apply flex items-center gap-3 flex-wrap;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+  .calculator-widget.card .calculator-container {
+    @apply p-4;
+  }
+  
+  .calculator-header {
+    @apply flex-col gap-3;
+  }
+  
+  .calculator-icon {
+    @apply w-10 h-10;
+  }
+  
+  .calculator-title {
+    @apply text-xl;
+  }
+  
+  .calculator-result-summary {
+    @apply grid-cols-1;
+  }
+  
+  .calculator-actions {
+    @apply flex-col;
+  }
+  
+  .calculator-button {
+    @apply w-full;
+  }
+}
+
+/* ============================================
+   Loading State
+   ============================================ */
+
+.calculator-widget.calculating {
+  @apply pointer-events-none opacity-75;
+}
+
+.calculator-loading {
+  @apply flex items-center justify-center gap-2;
+  @apply py-8 text-gray-600;
+}
+
+.calculator-loading-spinner {
+  @apply w-5 h-5 border-2 border-gray-300 border-t-blue-600 rounded-full;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   Dark Theme Overrides
+   ============================================ */
+
+.calculator-widget.dark .calculator-header {
+  @apply border-gray-700;
+}
+
+.calculator-widget.dark .calculator-title {
+  @apply text-white;
+}
+
+.calculator-widget.dark .calculator-description {
+  @apply text-gray-400;
+}
+
+.calculator-widget.dark .calculator-label {
+  @apply text-gray-300;
+}
+
+.calculator-widget.dark .calculator-input,
+.calculator-widget.dark .calculator-select {
+  @apply bg-gray-800 border-gray-700 text-white;
+}
+
+.calculator-widget.dark .calculator-slider {
+  @apply bg-gray-700;
+}
+
+.calculator-widget.dark .calculator-result-item {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.calculator-widget.dark .result-label {
+  @apply text-gray-400;
+}
+
+.calculator-widget.dark .result-value {
+  @apply text-white;
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+.calculator-widget:focus-within {
+  @apply ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Keyboard focus styles */
+.calculator-input:focus,
+.calculator-select:focus,
+.calculator-slider:focus {
+  @apply outline-none;
+}
+
+/* Screen reader only */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  .calculator-widget {
+    @apply shadow-none;
+  }
+  
+  .calculator-footer,
+  .calculator-button {
+    @apply hidden;
+  }
+  
+  .calculator-results {
+    @apply border-t-2 border-gray-900;
+  }
+}
