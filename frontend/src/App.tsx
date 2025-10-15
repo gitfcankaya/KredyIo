@@ -1,5 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import ProductListingPage from './pages/ProductListingPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import ComparisonPage from './pages/ComparisonPage';
+import CalculatorHubPage from './pages/CalculatorHubPage';
 import LoanList from './components/LoanList';
 import CreditCardList from './components/CreditCardList';
 import DepositRateList from './components/DepositRateList';
@@ -49,7 +54,13 @@ function App() {
                   Kampanyalar
                 </Link>
                 <Link
-                  to="/calculator"
+                  to="/karsilastir"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
+                  Karşılaştır
+                </Link>
+                <Link
+                  to="/hesaplama"
                   className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                 >
                   Hesaplama
@@ -62,12 +73,22 @@ function App() {
         {/* Main Content */}
         <main>
           <Routes>
-            <Route path="/" element={<LoanList />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/krediler" element={<LoanList />} />
             <Route path="/kredi-kartlari" element={<CreditCardList />} />
             <Route path="/mevduat" element={<DepositRateList />} />
             <Route path="/kampanyalar" element={<CampaignList />} />
+            <Route path="/karsilastir" element={<ComparisonPage />} />
+            <Route path="/hesaplama" element={<CalculatorHubPage />} />
             <Route path="/calculator" element={<LoanCalculator />} />
+            {/* Fallback for 404 */}
+            <Route path="*" element={
+              <div className="container mx-auto px-4 py-16 text-center">
+                <h1 className="text-4xl font-bold text-gray-800 mb-4">404</h1>
+                <p className="text-gray-600 mb-8">Sayfa bulunamadı</p>
+                <Link to="/" className="text-blue-600 hover:underline">Ana Sayfaya Dön</Link>
+              </div>
+            } />
           </Routes>
         </main>
 
