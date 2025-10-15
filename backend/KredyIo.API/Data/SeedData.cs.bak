@@ -1,0 +1,100 @@
+using Microsoft.EntityFrameworkCore;
+using KredyIo.API.Models.Entities;
+using KredyIo.API.Models.Enums;
+
+namespace KredyIo.API.Data
+{
+    public static class SeedDataExtensions
+    {
+        public static void SeedInitialData(this ModelBuilder modelBuilder)
+        {
+            var now = DateTime.UtcNow;
+
+            // Seed Banks
+            modelBuilder.Entity<Bank>().HasData(
+                new Bank { Id = 1, Name = "Türkiye İş Bankası", Code = "ISCTR", LogoUrl = "/images/banks/isbank.png", WebsiteUrl = "https://www.isbank.com.tr", Description = "Türkiye'nin en köklü bankalarından biri", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new Bank { Id = 2, Name = "Garanti BBVA", Code = "GARAN", LogoUrl = "/images/banks/garanti.png", WebsiteUrl = "https://www.garantibbva.com.tr", Description = "Teknoloji odaklı bankacılık", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new Bank { Id = 3, Name = "Akbank", Code = "AKBNK", LogoUrl = "/images/banks/akbank.png", WebsiteUrl = "https://www.akbank.com", Description = "Yenilikçi bankacılık çözümleri", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new Bank { Id = 4, Name = "Yapı Kredi", Code = "YKBNK", LogoUrl = "/images/banks/yapikredi.png", WebsiteUrl = "https://www.yapikredi.com.tr", Description = "Güçlü sermaye yapısı ile hizmet", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new Bank { Id = 5, Name = "QNB Finansbank", Code = "QNBFB", LogoUrl = "/images/banks/qnb.png", WebsiteUrl = "https://www.qnbfinansbank.com", Description = "Katarlı sermaye ile güçlü bankacılık", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new Bank { Id = 6, Name = "Ziraat Bankası", Code = "ZIRAA", LogoUrl = "/images/banks/ziraat.png", WebsiteUrl = "https://www.ziraatbank.com.tr", Description = "Türkiye'nin en büyük bankası", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new Bank { Id = 7, Name = "VakıfBank", Code = "VAKBN", LogoUrl = "/images/banks/vakifbank.png", WebsiteUrl = "https://www.vakifbank.com.tr", Description = "Halk bankacılığında öncü", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new Bank { Id = 8, Name = "Halkbank", Code = "HALKB", LogoUrl = "/images/banks/halkbank.png", WebsiteUrl = "https://www.halkbank.com.tr", Description = "Halkın bankası", IsActive = true, CreatedDate = now, UpdatedDate = now }
+            );
+
+            // Seed DepositProducts
+            modelBuilder.Entity<DepositProduct>().HasData(
+                new DepositProduct { Id = 1, Name = "Vadeli Mevduat 3 Ay", BankId = 1, Type = DepositType.VadeliMevduat, InterestRate = 45.00m, MinimumAmount = 1000, MinimumTerm = 90, MaximumTerm = 90, Currency = "TRY", Description = "3 aylık vadeli mevduat", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new DepositProduct { Id = 2, Name = "Vadeli Mevduat 6 Ay", BankId = 1, Type = DepositType.VadeliMevduat, InterestRate = 42.00m, MinimumAmount = 1000, MinimumTerm = 180, MaximumTerm = 180, Currency = "TRY", Description = "6 aylık vadeli mevduat", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new DepositProduct { Id = 3, Name = "Vadesiz Mevduat", BankId = 2, Type = DepositType.VadesizMevduat, InterestRate = 25.00m, MinimumAmount = 100, MinimumTerm = 1, Currency = "TRY", Description = "Günlük faizli vadesiz hesap", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new DepositProduct { Id = 4, Name = "USD Vadeli Mevduat", BankId = 3, Type = DepositType.DovizMevduati, InterestRate = 4.50m, MinimumAmount = 1000, MinimumTerm = 90, Currency = "USD", Description = "Dolar cinsinden vadeli mevduat", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new DepositProduct { Id = 5, Name = "Altın Hesabı", BankId = 4, Type = DepositType.AltinHesabi, InterestRate = 0.00m, MinimumAmount = 1, MinimumTerm = 1, Currency = "XAU", Description = "Fiziki altın hesabı", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new DepositProduct { Id = 6, Name = "EUR Vadeli Mevduat", BankId = 2, Type = DepositType.DovizMevduati, InterestRate = 3.75m, MinimumAmount = 1000, MinimumTerm = 90, Currency = "EUR", Description = "Euro cinsinden vadeli mevduat", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new DepositProduct { Id = 7, Name = "Vadeli Mevduat 1 Yıl", BankId = 6, Type = DepositType.VadeliMevduat, InterestRate = 40.00m, MinimumAmount = 5000, MinimumTerm = 365, MaximumTerm = 365, Currency = "TRY", Description = "1 yıllık vadeli mevduat", IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new DepositProduct { Id = 8, Name = "Çeyrek Altın Hesabı", BankId = 5, Type = DepositType.AltinHesabi, InterestRate = 0.00m, MinimumAmount = 1, MinimumTerm = 1, Currency = "XAU", Description = "Çeyrek altın hesabı", IsActive = true, CreatedDate = now, UpdatedDate = now }
+            );
+
+            // Seed CreditCards
+            modelBuilder.Entity<CreditCard>().HasData(
+                new CreditCard { Id = 1, Name = "Maximum Kart", BankId = 1, Type = CreditCardType.Bireysel, AnnualFee = 0, CashAdvanceRate = 3.99m, PurchaseRate = 3.49m, RewardPoints = 5, Description = "Giriş seviyesi kredi kartı", MinimumIncome = 4000, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new CreditCard { Id = 2, Name = "Bonus Kart", BankId = 2, Type = CreditCardType.Bireysel, AnnualFee = 120, CashAdvanceRate = 3.89m, PurchaseRate = 3.39m, RewardPoints = 8, Description = "Bonus puanı kazandıran kart", MinimumIncome = 5000, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new CreditCard { Id = 3, Name = "Axess Kart", BankId = 3, Type = CreditCardType.Bireysel, AnnualFee = 0, CashAdvanceRate = 4.09m, PurchaseRate = 3.59m, RewardPoints = 6, Description = "WorldPoints kazandıran kart", MinimumIncome = 4500, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new CreditCard { Id = 4, Name = "World Kart", BankId = 4, Type = CreditCardType.Premium, AnnualFee = 300, CashAdvanceRate = 3.69m, PurchaseRate = 3.19m, RewardPoints = 12, Description = "Premium ayrıcalıklar", MinimumIncome = 10000, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new CreditCard { Id = 5, Name = "Platinum Kart", BankId = 5, Type = CreditCardType.Platinum, AnnualFee = 500, CashAdvanceRate = 3.49m, PurchaseRate = 2.99m, RewardPoints = 15, Description = "En yüksek ayrıcalıklar", MinimumIncome = 15000, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new CreditCard { Id = 6, Name = "Bankkart Combo", BankId = 6, Type = CreditCardType.Bireysel, AnnualFee = 0, CashAdvanceRate = 4.19m, PurchaseRate = 3.69m, RewardPoints = 4, Description = "Devlet bankası güvencesi", MinimumIncome = 3500, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new CreditCard { Id = 7, Name = "Vakıf World", BankId = 7, Type = CreditCardType.Premium, AnnualFee = 250, CashAdvanceRate = 3.79m, PurchaseRate = 3.29m, RewardPoints = 10, Description = "World Card ayrıcalıkları", MinimumIncome = 8000, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new CreditCard { Id = 8, Name = "Paraf Kart", BankId = 8, Type = CreditCardType.Bireysel, AnnualFee = 50, CashAdvanceRate = 3.99m, PurchaseRate = 3.49m, RewardPoints = 7, Description = "Halkbank güvencesi", MinimumIncome = 4000, IsActive = true, CreatedDate = now, UpdatedDate = now }
+            );
+
+            // Seed InvestmentProducts
+            modelBuilder.Entity<InvestmentProduct>().HasData(
+                new InvestmentProduct { Id = 1, Name = "BIST 100", Symbol = "XU100", Type = InvestmentType.HisseSenedi, CurrentPrice = 9850.45m, DailyChange = 125.30m, DailyChangePercent = 1.29m, Volume = 15600000, Currency = "TRY", Description = "Borsa İstanbul 100 Endeksi", IsActive = true, CreatedDate = now, UpdatedDate = now, LastPriceUpdate = now },
+                new InvestmentProduct { Id = 2, Name = "Gram Altın", Symbol = "GOLD", Type = InvestmentType.Altin, CurrentPrice = 2850.75m, DailyChange = -15.25m, DailyChangePercent = -0.53m, Currency = "TRY", Description = "Gram altın fiyatı", IsActive = true, CreatedDate = now, UpdatedDate = now, LastPriceUpdate = now },
+                new InvestmentProduct { Id = 3, Name = "USD/TRY", Symbol = "USDTRY", Type = InvestmentType.Doviz, CurrentPrice = 34.25m, DailyChange = 0.15m, DailyChangePercent = 0.44m, Currency = "TRY", Description = "Dolar kuru", IsActive = true, CreatedDate = now, UpdatedDate = now, LastPriceUpdate = now },
+                new InvestmentProduct { Id = 4, Name = "EUR/TRY", Symbol = "EURTRY", Type = InvestmentType.Doviz, CurrentPrice = 37.85m, DailyChange = -0.25m, DailyChangePercent = -0.66m, Currency = "TRY", Description = "Euro kuru", IsActive = true, CreatedDate = now, UpdatedDate = now, LastPriceUpdate = now },
+                new InvestmentProduct { Id = 5, Name = "Garanti Bankası", Symbol = "GARAN", Type = InvestmentType.HisseSenedi, CurrentPrice = 85.50m, DailyChange = 2.10m, DailyChangePercent = 2.52m, Volume = 25000000, Currency = "TRY", Description = "GARAN hisse senedi", IsActive = true, CreatedDate = now, UpdatedDate = now, LastPriceUpdate = now },
+                new InvestmentProduct { Id = 6, Name = "Türkiye İş Bankası", Symbol = "ISCTR", Type = InvestmentType.HisseSenedi, CurrentPrice = 12.85m, DailyChange = -0.35m, DailyChangePercent = -2.65m, Volume = 18500000, Currency = "TRY", Description = "İşbank hisse senedi", IsActive = true, CreatedDate = now, UpdatedDate = now, LastPriceUpdate = now },
+                new InvestmentProduct { Id = 7, Name = "Çeyrek Altın", Symbol = "QUARTER_GOLD", Type = InvestmentType.Altin, CurrentPrice = 7125.50m, DailyChange = -38.15m, DailyChangePercent = -0.53m, Currency = "TRY", Description = "Çeyrek altın fiyatı", IsActive = true, CreatedDate = now, UpdatedDate = now, LastPriceUpdate = now },
+                new InvestmentProduct { Id = 8, Name = "GBP/TRY", Symbol = "GBPTRY", Type = InvestmentType.Doviz, CurrentPrice = 43.15m, DailyChange = 0.35m, DailyChangePercent = 0.82m, Currency = "TRY", Description = "İngiliz Sterlini kuru", IsActive = true, CreatedDate = now, UpdatedDate = now, LastPriceUpdate = now }
+            );
+
+            // Seed SystemSettings
+            modelBuilder.Entity<SystemSetting>().HasData(
+                new SystemSetting { Id = 1, Key = "SCRAPING_ENABLED", Value = "true", Description = "Web scraping sisteminin aktif olup olmadığı", IsSystem = true, CreatedDate = now, UpdatedDate = now },
+                new SystemSetting { Id = 2, Key = "DEFAULT_SCRAPING_INTERVAL", Value = "300", Description = "Varsayılan scraping aralığı (dakika)", IsSystem = true, CreatedDate = now, UpdatedDate = now },
+                new SystemSetting { Id = 3, Key = "MAX_CONCURRENT_JOBS", Value = "5", Description = "Eş zamanlı çalışabilecek maksimum job sayısı", IsSystem = true, CreatedDate = now, UpdatedDate = now },
+                new SystemSetting { Id = 4, Key = "EMAIL_NOTIFICATIONS", Value = "true", Description = "E-posta bildirimlerinin aktif olup olmadığı", IsSystem = false, CreatedDate = now, UpdatedDate = now },
+                new SystemSetting { Id = 5, Key = "SITE_NAME", Value = "KredyIo", Description = "Site adı", IsSystem = false, CreatedDate = now, UpdatedDate = now },
+                new SystemSetting { Id = 6, Key = "ADMIN_EMAIL", Value = "admin@kredyio.com", Description = "Admin e-posta adresi", IsSystem = true, CreatedDate = now, UpdatedDate = now }
+            );
+
+            // Seed Sample Articles
+            modelBuilder.Entity<Article>().HasData(
+                new Article { Id = 1, Title = "Kredi Faiz Oranları Nasıl Belirlenir?", Slug = "kredi-faiz-oranlari-nasil-belirlenir", Content = "Kredi faiz oranları merkez bankası politika faizi, banka risk primi ve piyasa koşulları dikkate alınarak belirlenir. Ayrıca müşterinin kredi notu, gelir durumu ve kredinin türü de faiz oranının belirlenmesinde önemli faktörlerdir.", Summary = "Kredi faiz oranlarının belirlenmesinde etkili olan faktörler", Category = ArticleCategory.KrediRehberi, Tags = "kredi,faiz,oran", IsPublished = true, ViewCount = 0, CreatedDate = now, UpdatedDate = now, PublishedDate = now },
+                new Article { Id = 2, Title = "Mevduat Faizlerinde Son Durum", Slug = "mevduat-faizlerinde-son-durum", Content = "2024 yılında mevduat faizlerinde yaşanan değişimler ve gelecek beklentileri. Merkez Bankası'nın politika faizi kararları doğrultusunda bankalar mevduat faizlerini güncellemeye devam ediyor.", Summary = "Mevduat faizlerindeki güncel gelişmeler", Category = ArticleCategory.MevduatRehberi, Tags = "mevduat,faiz,2024", IsPublished = true, ViewCount = 0, CreatedDate = now, UpdatedDate = now, PublishedDate = now },
+                new Article { Id = 3, Title = "Kredi Kartı Seçerken Dikkat Edilmesi Gerekenler", Slug = "kredi-karti-secerken-dikkat-edilmesi-gerekenler", Content = "Kredi kartı seçimi yaparken yıllık aidat, faiz oranları, puan sistemi, kampanyalar ve avantajlar göz önünde bulundurulması gereken temel kriterlerdir.", Summary = "Doğru kredi kartı seçimi için ipuçları", Category = ArticleCategory.KrediKartiRehberi, Tags = "kredi kartı,seçim,ipucu", IsPublished = true, ViewCount = 0, CreatedDate = now, UpdatedDate = now, PublishedDate = now },
+                new Article { Id = 4, Title = "Altın Yatırımı Rehberi", Slug = "altin-yatirimi-rehberi", Content = "Altın yatırımının avantajları, dezavantajları ve altın yatırım araçları hakkında kapsamlı bilgiler. Fiziki altın, altın hesabı ve altın fonları karşılaştırması.", Summary = "Altın yatırımı hakkında bilmeniz gerekenler", Category = ArticleCategory.YatirimTavsiyeleri, Tags = "altın,yatırım,rehber", IsPublished = true, ViewCount = 0, CreatedDate = now, UpdatedDate = now, PublishedDate = now },
+                new Article { Id = 5, Title = "2024 Ekonomik Görünüm", Slug = "2024-ekonomik-gorunum", Content = "2024 yılı için ekonomik beklentiler, enflasyon hedefleri ve finansal piyasalardaki gelişmeler. Yatırımcılar için önemli tarihler ve izlenecek göstergeler.", Summary = "2024 yılı ekonomik beklentiler", Category = ArticleCategory.EkonomikHaberler, Tags = "ekonomi,2024,beklenti", IsPublished = true, ViewCount = 0, CreatedDate = now, UpdatedDate = now, PublishedDate = now }
+            );
+
+            // Seed Sample FAQ
+            modelBuilder.Entity<FAQ>().HasData(
+                new FAQ { Id = 1, Question = "Kredi başvurusu nasıl yapılır?", Answer = "Kredi başvurusu için bankaya giderek veya online olarak başvuru yapabilirsiniz. Gerekli belgeler: kimlik, gelir belgesi, ikametgah belgesi ve kredi notu sorgulaması için onay.", Category = ArticleCategory.KrediRehberi, DisplayOrder = 1, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new FAQ { Id = 2, Question = "Mevduat faizi nasıl hesaplanır?", Answer = "Mevduat faizi, anapara × faiz oranı × süre formülü ile hesaplanır. Bileşik faiz hesaplamalarında faiz anapara ile birleşerek bir sonraki dönemde faiz getirisi sağlar.", Category = ArticleCategory.MevduatRehberi, DisplayOrder = 1, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new FAQ { Id = 3, Question = "Kredi kartı limiti nasıl artırılır?", Answer = "Kredi kartı limiti artırımı için gelir artışını belgelemeli, düzenli ödeme geçmişiniz olmalı ve bankaya limit artırım talebinde bulunmalısınız. Kredi notunuz da limit belirlenmesinde etkilidir.", Category = ArticleCategory.KrediKartiRehberi, DisplayOrder = 1, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new FAQ { Id = 4, Question = "Altın hesabı nasıl açılır?", Answer = "Altın hesabı açmak için bankaya başvuruda bulunmalı, kimlik belgesi ve imza sirküleri vermelisiniz. Minimum altın alım miktarı bankalara göre değişiklik gösterir.", Category = ArticleCategory.YatirimTavsiyeleri, DisplayOrder = 1, IsActive = true, CreatedDate = now, UpdatedDate = now },
+                new FAQ { Id = 5, Question = "Kredi notu nasıl yükseltilir?", Answer = "Kredi notunu yükseltmek için borçlarınızı zamanında ödeyin, kredi kartı borcunuzun tamamını kapatın, kart limitinizin %30'undan fazlasını kullanmamaya çalışın ve düzenli gelir bildiriminde bulunun.", Category = ArticleCategory.FinansIpuclari, DisplayOrder = 1, IsActive = true, CreatedDate = now, UpdatedDate = now }
+            );
+
+            // Seed Sample ScrapingJobs
+            modelBuilder.Entity<ScrapingJob>().HasData(
+                new ScrapingJob { Id = 1, Name = "TCMB Faiz Oranları", JobType = JobType.CreditRateScraping, Status = JobStatus.Pending, TargetUrl = "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Faiz+Istatistikleri", IntervalMinutes = 1440, IsActive = true, IsRecurring = true, Configuration = "{\"selector\": \".rate-table\", \"fields\": [\"rate\", \"date\"]}", CreatedDate = now, UpdatedDate = now },
+                new ScrapingJob { Id = 2, Name = "Altın Fiyatları", JobType = JobType.GoldPriceScraping, Status = JobStatus.Pending, TargetUrl = "https://bigpara.hurriyet.com.tr/altin/", IntervalMinutes = 60, IsActive = true, IsRecurring = true, Configuration = "{\"selector\": \".gold-price\", \"fields\": [\"price\", \"change\"]}", CreatedDate = now, UpdatedDate = now },
+                new ScrapingJob { Id = 3, Name = "Döviz Kurları", JobType = JobType.CurrencyRateScraping, Status = JobStatus.Pending, TargetUrl = "https://www.tcmb.gov.tr/kurlar/today.xml", IntervalMinutes = 30, IsActive = true, IsRecurring = true, Configuration = "{\"format\": \"xml\", \"currencies\": [\"USD\", \"EUR\", \"GBP\"]}", CreatedDate = now, UpdatedDate = now },
+                new ScrapingJob { Id = 4, Name = "BIST Verileri", JobType = JobType.StockDataScraping, Status = JobStatus.Pending, TargetUrl = "https://www.borsaistanbul.com/tr/", IntervalMinutes = 15, IsActive = true, IsRecurring = true, Configuration = "{\"indices\": [\"XU100\", \"XU030\"], \"stocks\": [\"GARAN\", \"ISCTR\"]}", CreatedDate = now, UpdatedDate = now },
+                new ScrapingJob { Id = 5, Name = "Finans Haberleri", JobType = JobType.NewsContentScraping, Status = JobStatus.Pending, TargetUrl = "https://www.bloomberg.com.tr/", IntervalMinutes = 180, IsActive = true, IsRecurring = true, Configuration = "{\"categories\": [\"ekonomi\", \"finans\", \"borsa\"]}", CreatedDate = now, UpdatedDate = now },
+                new ScrapingJob { Id = 6, Name = "Banka Mevduat Faizleri", JobType = JobType.DepositRateScraping, Status = JobStatus.Pending, TargetUrl = "https://www.bankacilik.org.tr/", IntervalMinutes = 720, IsActive = true, IsRecurring = true, Configuration = "{\"banks\": [\"all\"], \"currencies\": [\"TRY\", \"USD\", \"EUR\"]}", CreatedDate = now, UpdatedDate = now }
+            );
+        }
+    }
+}

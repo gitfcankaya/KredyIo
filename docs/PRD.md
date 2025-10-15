@@ -1,54 +1,213 @@
 # Product Requirements Document (PRD)
-## KredyIo - Credit Comparison Platform
+## KredyIo - Kapsamlı Finansal Karşılaştırma Platformu
 
 ### 1. Executive Summary
-KredyIo is a comprehensive credit information, calculation, and comparison platform designed to help users make informed financial decisions. The platform aggregates credit products from multiple sources and provides tools for comparison and calculation.
+KredyIo, Türkiye'nin en kapsamlı kredi, kredi kartı, mevduat ve yatırım karşılaştırma platformudur. Kullanıcılara bilinçli finansal kararlar almalarında yardımcı olmak üzere canlı faiz oranları, hesaplama araçları, piyasa verileri ve detaylı ürün karşılaştırmaları sunar.
 
 ### 2. Product Vision
-To become the leading credit comparison platform in Turkey, providing transparent, accurate, and comprehensive credit information to consumers.
+Türkiye'de finansal ürünler için tek durak noktası olmak; şeffaf, güncel ve kapsamlı bilgi ile kullanıcıların en avantajlı seçenekleri bulmasını sağlamak.
 
 ### 3. Target Audience
-- **Primary:** Individuals seeking personal loans, credit cards, or mortgages
-- **Secondary:** Small business owners seeking business loans
-- **Tertiary:** Financial advisors and consultants
+- **Birincil:** Bireysel kredi, kredi kartı, konut/taşıt kredisi arayanlar
+- **İkincil:** KOBİ sahipleri ve ticari kredi arayanlar
+- **Üçüncül:** Yatırımcılar (mevduat, altın, döviz, hisse)
+- **Destekleyici:** Mali müşavirler, bankacılık profesyonelleri
 
-### 4. Key Features
+### 4. Detaylı Özellikler
 
-#### 4.1 Credit Product Catalog
-- Personal Loans
-- Credit Cards
-- Mortgages
-- Auto Loans
-- Business Loans
+#### 4.1 Ana Sayfa Features
+**Hero Section:**
+- Büyük başlık ve CTA butonları
+- Arama çubuğu (ürün/banka arama)
+- Gradient background
 
-#### 4.2 Comparison Tools
-- Side-by-side comparison of up to 5 products
-- Customizable comparison criteria
-- Filter by interest rate, term, amount, bank, etc.
+**Hızlı Hesaplama Widget'ları:**
+- İhtiyaç Kredisi Hesaplama (tutar + vade)
+- Konut Kredisi Hesaplama (tutar + vade 12-180 ay)
+- Taşıt Kredisi Hesaplama (tutar + vade 3-48 ay)
+- Kredi Kartı Limit Hesaplama (aylık gelir)
 
-#### 4.3 Calculators
-- Loan payment calculator
-- Interest calculator
-- Early payment calculator
-- Total cost calculator
-- Debt consolidation calculator
+**Canlı Piyasa Verileri:**
+- Döviz Kurları (Dolar, Euro, Sterlin - alış/satış)
+- Altın Fiyatları (Gram, Çeyrek, Yarım, Cumhuriyet, Spot)
+- BIST 100 Endeksi (güncel + değişim %)
+- Tarih/saat damgası ve yükseliş/düşüş göstergeleri
 
-#### 4.4 Data Aggregation
-- Automated data collection from partner institutions
-- Regular updates of interest rates and terms
-- Historical data tracking
+**Öne Çıkan Bankalar:**
+- 6-8 banka logosu grid
+- Hover efektleri
+- Banka detay sayfası linkleri
 
-#### 4.5 User Features
-- Save favorite products
-- Create comparison lists
-- Receive notifications on rate changes
-- Application tracking
+**Öne Çıkan Ürünler Carousel:**
+- Sponsor badge'li ürünler
+- Banka logosu, ürün adı
+- Faiz oranı, aylık taksit, toplam ödeme
+- "Detayları İncele" ve "Başvur" butonları
 
-#### 4.6 Educational Content
-- Credit guides and articles
-- Financial literacy resources
-- FAQ section
-- Glossary of financial terms
+#### 4.2 Kredi Ürünleri Kataloğu
+
+**İhtiyaç Kredisi:**
+- Tutar: 500 TL - 1.000.000 TL
+- Vade: 1-36 ay
+- Karşılaştırma tablosu (banka, faiz, taksit, toplam)
+- Filtreleme (banka, faiz aralığı, vade)
+- FAQ (20+ soru)
+- JSON-LD schema (SEO)
+
+**Konut Kredisi:**
+- Tutar: 5.000 TL - 100.000.000 TL
+- Vade: 12-180 ay
+- İlk evim/2. evim radio (BDDK kuralları)
+- Faiz grafiği (1 ay, 3 ay, 6 ay, 1 yıl, tümü)
+- En uygun kredi info box
+- Detaylı SSS (25+ soru)
+
+**Taşıt Kredisi:**
+- Tutar: 500 TL - 20.000.000 TL
+- Vade: 3-48 ay
+- Araç tipi: Sıfır/2. El
+- Peşinat hesaplama (BDDK oranları)
+- Kasko değer listesi entegrasyonu
+- SSS (15+ soru)
+
+**Evlilik Kredisi:**
+- Özel hesaplama
+- Kampanyalar
+- Banka karşılaştırması
+
+**Faizsiz Krediler:**
+- Katılım bankaları
+- Kâr payı hesaplama
+- İslami finans bilgilendirme
+
+#### 4.3 Kredi Kartı Ürünleri
+
+**Kategoriler:**
+- Aidatsız Kredi Kartları
+- Puan Kazandıran Kartlar
+- Mil Kazandıran Kartlar
+- Öğrenci Kredi Kartları
+- Ticari Kredi Kartları
+
+**Kart Detay Sayfası:**
+- Kart görseli (yüksek çözünürlük)
+- Banka logosu
+- Özellikler (badge'ler)
+- Avantajlar listesi (bullet points)
+- Puan/Mil tablosu
+- Harcama kategorilerine göre kazanç
+- Başvuru formu
+- SSS
+
+#### 4.4 Mevduat ve Yatırım
+
+**Mevduat Hesaplama:**
+- Ana para (1.000 - 10.000.000 TL)
+- Para birimi (TL, USD, EUR, GBP)
+- Vade (1, 3, 6, 9, 12, 24 ay)
+- Sonuç: Ana para, faiz, stopaj, net gelir, toplam
+
+**Banka Mevduat Karşılaştırma:**
+- Tablo: Banka, 1 ay, 3 ay, 6 ay, 12 ay, 24 ay
+- Kampanya durumu
+- Sıralama ve filtreleme
+
+**Altın Yatırım:**
+- Canlı altın fiyatları (10+ çeşit)
+- Altın hesaplama (miktar, tip, para birimi)
+- Alış/Satış seçimi
+- Grafik ve trend analizi
+
+**Döviz Çevirici:**
+- 30+ para birimi
+- Swap özelliği
+- Güncel kurlar tablosu
+- Grafik linki
+
+#### 4.5 Ticari Ürünler
+
+**KOBİ Kredisi:**
+- Firma bilgileri formu
+- Vergi no, şirket unvanı, sektör
+- Yıllık ciro, çalışan sayısı
+- Kredi amaçları (işletme sermayesi, makine, taşıt, vs.)
+
+**Ticari Kredi Kartı:**
+- Yüksek limitler (100.000 TL+)
+- Muhasebe entegrasyonu
+- Harcama raporları
+- Çoklu kart seçeneği
+
+**POS Sistemleri:**
+- Sanal, fiziksel, mobil POS
+- Komisyon karşılaştırma
+- Taksit seçenekleri
+- Kurulum ve aylık ücretler
+
+#### 4.6 Yeni Müşteri Fırsatları
+
+**Uzaktan Müşteri Edinimi:**
+- Banka başvuru formları
+- Hoşgeldin bonusu kampanyaları
+- Şartlar ve geçerlilik
+
+**Emekli Promosyonları:**
+- Maaş aralığı filtresi
+- İlk kez/nakil seçimi
+- Promosyon tablosu
+
+**Memur Promosyonları:**
+- Kurum seçimi
+- Taahhüt süreleri
+- Ek avantajlar
+
+#### 4.7 Bilgi Merkezi ve İçerik
+
+**Rehber Makaleleri:**
+- Kategoriler: Kredi, Kredi Kartı, Mevduat, Bankacılık
+- Makale yapısı: Başlık, yazar, tarih, TOC, içerik
+- İlgili makaleler
+- Okuma süresi
+
+**Sık Sorulan Sorular:**
+- Accordion yapı
+- JSON-LD schema
+- Her ürün için ayrı SSS
+
+**Hesaplama Araçları:**
+- Kredi erken kapama
+- KMH hesaplama
+- Kredi kartı limit
+- Taksitli nakit avans
+- Dosya masrafı hesaplama
+
+#### 4.8 Piyasa Verileri
+
+**Hisse Senetleri:**
+- BIST endeksleri
+- Hisse listesi (sembol, fiyat, değişim, hacim)
+- Grafik linkleri
+
+**Yatırım Fonları:**
+- Kategoriler (hisse, tahvil, karma, döviz, altın, para piyasası)
+- Getiri tablosu (günlük, aylık, yıllık)
+- Risk seviyesi
+
+**Endeksler:**
+- Yerli (BIST 100, 30, 50, sektör)
+- Küresel (S&P 500, Nasdaq, DAX, FTSE, Nikkei)
+
+**Halka Arz Takvimi:**
+- Şirket adı, tarih, fiyat aralığı
+- Başvuru tarihleri
+
+#### 4.9 Banka Detay Sayfaları
+
+**Banka Profili:**
+- Logo, unvan, kuruluş, iletişim
+- Ürün sekmesi (tüm ürünler)
+- Kampanyalar sekmesi
+- Şube/ATM bulucu (harita entegrasyonu)
 
 ### 5. User Stories
 

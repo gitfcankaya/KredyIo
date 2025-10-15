@@ -1,6 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ProductList from './components/ProductList';
+import LoanList from './components/LoanList';
+import CreditCardList from './components/CreditCardList';
+import DepositRateList from './components/DepositRateList';
+import CampaignList from './components/CampaignList';
 import LoanCalculator from './components/LoanCalculator';
 
 function App() {
@@ -11,19 +15,49 @@ function App() {
         <header className="bg-white shadow-sm">
           <nav className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
-              <Link to="/" className="text-2xl font-bold text-primary-600">
+              <Link to="/" className="text-2xl font-bold text-blue-600">
                 KredyIo
               </Link>
               <div className="flex gap-6">
                 <Link
                   to="/"
-                  className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                 >
-                  Ürünler
+                  Ana Sayfa
+                </Link>
+                <Link
+                  to="/krediler"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
+                  Krediler
+                </Link>
+                <Link
+                  to="/kredi-kartlari"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
+                  Kredi Kartları
+                </Link>
+                <Link
+                  to="/mevduat"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
+                  Mevduat Oranları
+                </Link>
+                <Link
+                  to="/kampanyalar"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
+                  Kampanyalar
+                </Link>
+                <Link
+                  to="/products"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
+                  Ürünler (Eski)
                 </Link>
                 <Link
                   to="/calculator"
-                  className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                 >
                   Hesaplama
                 </Link>
@@ -35,7 +69,12 @@ function App() {
         {/* Main Content */}
         <main>
           <Routes>
-            <Route path="/" element={<ProductList />} />
+            <Route path="/" element={<LoanList />} />
+            <Route path="/krediler" element={<LoanList />} />
+            <Route path="/kredi-kartlari" element={<CreditCardList />} />
+            <Route path="/mevduat" element={<DepositRateList />} />
+            <Route path="/kampanyalar" element={<CampaignList />} />
+            <Route path="/products" element={<ProductList />} />
             <Route path="/calculator" element={<LoanCalculator />} />
           </Routes>
         </main>
@@ -55,12 +94,27 @@ function App() {
                 <ul className="space-y-2 text-gray-400">
                   <li>
                     <Link to="/" className="hover:text-white">
+                      Ana Sayfa
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/products" className="hover:text-white">
                       Ürünler
                     </Link>
                   </li>
                   <li>
                     <Link to="/calculator" className="hover:text-white">
                       Hesaplama
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/banks" className="hover:text-white">
+                      Bankalar
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/rates" className="hover:text-white">
+                      Oranlar
                     </Link>
                   </li>
                 </ul>

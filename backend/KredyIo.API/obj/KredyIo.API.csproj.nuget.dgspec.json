@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/home/runner/work/KredyIo/KredyIo/backend/KredyIo.API/KredyIo.API.csproj": {}
+    "C:\\Users\\frkcn\\OneDrive\\Desktop\\Projects25\\KredyIo\\backend\\KredyIo.API\\KredyIo.API.csproj": {}
   },
   "projects": {
-    "/home/runner/work/KredyIo/KredyIo/backend/KredyIo.API/KredyIo.API.csproj": {
+    "C:\\Users\\frkcn\\OneDrive\\Desktop\\Projects25\\KredyIo\\backend\\KredyIo.API\\KredyIo.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/runner/work/KredyIo/KredyIo/backend/KredyIo.API/KredyIo.API.csproj",
+        "projectUniqueName": "C:\\Users\\frkcn\\OneDrive\\Desktop\\Projects25\\KredyIo\\backend\\KredyIo.API\\KredyIo.API.csproj",
         "projectName": "KredyIo.API",
-        "projectPath": "/home/runner/work/KredyIo/KredyIo/backend/KredyIo.API/KredyIo.API.csproj",
-        "packagesPath": "/home/runner/.nuget/packages/",
-        "outputPath": "/home/runner/work/KredyIo/KredyIo/backend/KredyIo.API/obj/",
+        "projectPath": "C:\\Users\\frkcn\\OneDrive\\Desktop\\Projects25\\KredyIo\\backend\\KredyIo.API\\KredyIo.API.csproj",
+        "packagesPath": "C:\\Users\\frkcn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\frkcn\\OneDrive\\Desktop\\Projects25\\KredyIo\\backend\\KredyIo.API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/runner/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\frkcn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -48,6 +54,34 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            },
+            "Hangfire.AspNetCore": {
+              "target": "Package",
+              "version": "[1.8.17, )"
+            },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.8.17, )"
+            },
+            "Hangfire.MemoryStorage": {
+              "target": "Package",
+              "version": "[1.8.1.2, )"
+            },
+            "Hangfire.SqlServer": {
+              "target": "Package",
+              "version": "[1.8.17, )"
+            },
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.67, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[9.0.9, )"
@@ -70,9 +104,29 @@
               "target": "Package",
               "version": "[9.0.9, )"
             },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.25.0, )"
+            },
+            "Selenium.WebDriver.ChromeDriver": {
+              "target": "Package",
+              "version": "[130.0.6723.9100, )"
+            },
             "Serilog.AspNetCore": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.9, )"
             }
           },
           "imports": [
@@ -94,7 +148,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

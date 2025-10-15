@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.8.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
@@ -15,8 +16,29 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    
+    <!-- Web Scraping Packages -->
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.67" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.25.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="130.0.6723.9100" />
+    
+    <!-- Background Jobs -->
+    <PackageReference Include="Hangfire.Core" Version="1.8.17" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.8.17" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.17" />
+    
+    <!-- HTTP Client and JSON -->
+    <PackageReference Include="System.Text.Json" Version="9.0.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    
+    <!-- Authentication & Security -->
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    
+    <!-- Utilities -->
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
   </ItemGroup>
 
 </Project>

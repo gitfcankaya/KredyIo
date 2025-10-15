@@ -37,7 +37,6 @@ const ProductList: React.FC = () => {
       }
     };
     loadProductsAsync();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const toggleProductSelection = (productId: string) => {

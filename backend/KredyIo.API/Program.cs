@@ -1,6 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using KredyIo.API.Data;
 using KredyIo.API.Services;
+using KredyIo.API.Services.Scraping;
+using KredyIo.API.Services.Scraping.Interfaces;
+using KredyIo.API.Services.Scraping.Scrapers;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,12 +40,31 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Configure Database (using In-Memory for now)
+
+// Configure Database (MSSQL)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("KredyIoDb"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configure Hangfire
+builder.Services.AddHangfire(configuration => configuration
+    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseMemoryStorage());
+
+builder.Services.AddHangfireServer();
 
 // Register services
 builder.Services.AddScoped<ICalculatorService, CalculatorService>();
+builder.Services.AddScoped<DataAggregationService>();
+
+// Register HttpClient
+builder.Services.AddHttpClient();
+
+// Register scraping services
+builder.Services.AddScoped<IScrapingJobService, ScrapingJobService>();
+builder.Services.AddScoped<TcmbCurrencyRateScraper>();
+builder.Services.AddScoped<BigParaGoldPriceScraper>();
 
 var app = builder.Build();
 
@@ -55,6 +79,8 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    // Add Hangfire Dashboard for development
+    app.UseHangfireDashboard("/hangfire");
 }
 
 app.UseSerilogRequestLogging();
