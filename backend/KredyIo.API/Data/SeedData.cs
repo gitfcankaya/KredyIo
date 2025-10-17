@@ -1,4 +1,5 @@
 using KredyIo.API.Models.Entities;
+using KredyIo.API.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace KredyIo.API.Data;
@@ -10,12 +11,7 @@ public static class SeedData
         // Ensure database is created
         await context.Database.EnsureCreatedAsync();
 
-        // Check if data already exists
-        if (await context.Banks.AnyAsync())
-        {
-            return; // Database has been seeded
-        }
-
+        // Seed all data
         // Seed Banks
         await SeedBanks(context);
 
@@ -31,6 +27,139 @@ public static class SeedData
         // Seed Campaigns
         await SeedCampaigns(context);
 
+        // Seed ContentArticles and FAQs
+        await SeedContentArticles(context);
+        await SeedFAQs(context);
+        // Seed Articles and detailed FAQs
+        await SeedArticles(context);
+        await SeedFrequentlyAskedQuestions(context);
+        // Seed Users, Settings, DepositProducts, CurrencyRates
+        await SeedUsers(context);
+        await SeedSystemSettings(context);
+        await SeedDepositProducts(context);
+        await SeedCurrencyRates(context);
+
+        // Seed remaining entities
+        await SeedGoldPrices(context);
+        await SeedEconomicIndicators(context);
+        await SeedNewsArticles(context);
+        await SeedInvestmentProducts(context);
+
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedGoldPrices(ApplicationDbContext context)
+    {
+        if (await context.GoldPrices.AnyAsync()) return;
+        var goldPrices = new List<GoldPrice>
+            {
+                new GoldPrice { GoldType = "Gram Altın", BuyingPrice = 2450.50m, SellingPrice = 2455.75m, PreviousPrice = 2440.00m, ChangePercent = 0.43m, ChangeAmount = 10.50m, Source = "BigPara", PriceDate = DateTime.UtcNow },
+                new GoldPrice { GoldType = "Çeyrek Altın", BuyingPrice = 4025.00m, SellingPrice = 4050.00m, PreviousPrice = 4000.00m, ChangePercent = 0.63m, ChangeAmount = 25.00m, Source = "BigPara", PriceDate = DateTime.UtcNow },
+                new GoldPrice { GoldType = "Yarım Altın", BuyingPrice = 8020.00m, SellingPrice = 8080.00m, PreviousPrice = 7980.00m, ChangePercent = 0.50m, ChangeAmount = 40.00m, Source = "BigPara", PriceDate = DateTime.UtcNow },
+                new GoldPrice { GoldType = "Tam Altın", BuyingPrice = 16100.00m, SellingPrice = 16200.00m, PreviousPrice = 16000.00m, ChangePercent = 0.63m, ChangeAmount = 100.00m, Source = "BigPara", PriceDate = DateTime.UtcNow },
+                new GoldPrice { GoldType = "Cumhuriyet Altını", BuyingPrice = 16300.00m, SellingPrice = 16400.00m, PreviousPrice = 16200.00m, ChangePercent = 0.62m, ChangeAmount = 100.00m, Source = "BigPara", PriceDate = DateTime.UtcNow },
+                new GoldPrice { GoldType = "Ata Altın", BuyingPrice = 17100.00m, SellingPrice = 17250.00m, PreviousPrice = 17000.00m, ChangePercent = 0.59m, ChangeAmount = 100.00m, Source = "BigPara", PriceDate = DateTime.UtcNow }
+            };
+        await context.GoldPrices.AddRangeAsync(goldPrices);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedEconomicIndicators(ApplicationDbContext context)
+    {
+        if (await context.EconomicIndicators.AnyAsync()) return;
+        var indicators = new List<EconomicIndicator>
+            {
+                new EconomicIndicator { IndicatorCode = "ENFLASYON", IndicatorName = "Yıllık Enflasyon", Value = 61.53m, Unit = "%", Period = "Yıllık", PreviousValue = 64.77m, ChangePercent = -5.00m, Source = "TÜİK", DataDate = DateTime.UtcNow.AddMonths(-1) },
+                new EconomicIndicator { IndicatorCode = "BUYUME", IndicatorName = "GSYİH Büyüme", Value = 4.5m, Unit = "%", Period = "Yıllık", PreviousValue = 5.1m, ChangePercent = -11.76m, Source = "TÜİK", DataDate = DateTime.UtcNow.AddMonths(-3) },
+                new EconomicIndicator { IndicatorCode = "FAIZ", IndicatorName = "Politika Faizi", Value = 50.00m, Unit = "%", Period = "Yıllık", PreviousValue = 45.00m, ChangePercent = 11.11m, Source = "TCMB", DataDate = DateTime.UtcNow },
+                new EconomicIndicator { IndicatorCode = "ISSIZLIK", IndicatorName = "İşsizlik Oranı", Value = 9.2m, Unit = "%", Period = "Aylık", PreviousValue = 9.4m, ChangePercent = -2.13m, Source = "TÜİK", DataDate = DateTime.UtcNow.AddMonths(-1) },
+                new EconomicIndicator { IndicatorCode = "CARIACIK", IndicatorName = "Cari Açık", Value = -24.5m, Unit = "Milyar USD", Period = "Yıllık", PreviousValue = -45.2m, ChangePercent = -45.80m, Source = "TCMB", DataDate = DateTime.UtcNow.AddMonths(-1) }
+            };
+        await context.EconomicIndicators.AddRangeAsync(indicators);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedNewsArticles(ApplicationDbContext context)
+    {
+        if (await context.NewsArticles.AnyAsync()) return;
+        var newsArticles = new List<NewsArticle>
+            {
+                new NewsArticle { Title = "TCMB Faiz Kararını Açıkladı", Summary = "Merkez Bankası politika faizini %50'de sabit tutma kararı aldı.", Content = "Türkiye Cumhuriyet Merkez Bankası, Para Politikası Kurulu toplantısında politika faizini %50 seviyesinde sabit tutma kararı aldı. Kararda enflasyondaki düşüş trendi vurgulandı.", SourceUrl = "https://example.com/news/tcmb-faiz", Source = "Bloomberg HT", Author = "Ekonomi Editörü", ImageUrl = "/images/news/tcmb-faiz.jpg", Tags = "[\"TCMB\", \"Faiz\", \"Ekonomi\"]", Category = "Ekonomi", PublishedAt = DateTime.UtcNow.AddHours(-5), IsActive = true, ViewCount = 0 },
+                new NewsArticle { Title = "Altın Fiyatlarında Rekor Artış", Summary = "Gram altın 2500 TL'yi aştı, yatırımcılar altına yöneldi.", Content = "Küresel piyasalardaki belirsizlikler ve döviz kurundaki hareketlilik nedeniyle altın fiyatları rekor seviyelere ulaştı. Gram altın tarihi zirvesini gördü.", SourceUrl = "https://example.com/news/altin-rekor", Source = "Ekonomist", Author = "Piyasa Editörü", ImageUrl = "/images/news/altin-rekor.jpg", Tags = "[\"Altın\", \"Yatırım\"]", Category = "Piyasalar", PublishedAt = DateTime.UtcNow.AddHours(-12), IsActive = true, ViewCount = 0 },
+                new NewsArticle { Title = "Bankalar Kredi Faizlerini İndirdi", Summary = "Konut kredisi faiz oranlarında düşüş başladı.", Content = "Birçok banka konut kredisi faiz oranlarında indirime gitti. İhtiyaç kredisi faizlerinde de düşüş bekleniyor.", SourceUrl = "https://example.com/news/kredi-faiz-dusus", Source = "Hürriyet", Author = "Finans Muhabiri", ImageUrl = "/images/news/kredi-faiz.jpg", Tags = "[\"Kredi\", \"Faiz\", \"Bankalar\"]", Category = "Bankacılık", PublishedAt = DateTime.UtcNow.AddDays(-1), IsActive = true, ViewCount = 0 }
+            };
+        await context.NewsArticles.AddRangeAsync(newsArticles);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedInvestmentProducts(ApplicationDbContext context)
+    {
+        if (await context.InvestmentProducts.AnyAsync()) return;
+        var now = DateTime.UtcNow;
+        var investmentProducts = new List<InvestmentProduct>
+            {
+                new InvestmentProduct {
+                    Name = "İş Bankası Hisse Senedi",
+                    Symbol = "ISCTR",
+                    Type = InvestmentType.HisseSenedi,
+                    CurrentPrice = 15.75m,
+                    DailyChange = 0.35m,
+                    DailyChangePercent = 2.27m,
+                    Volume = 125000000,
+                    HighPrice = 15.95m,
+                    LowPrice = 15.50m,
+                    OpenPrice = 15.60m,
+                    IsActive = true,
+                    CreatedDate = now,
+                    UpdatedDate = now
+                },
+                new InvestmentProduct {
+                    Name = "Garanti BBVA Hisse Senedi",
+                    Symbol = "GARAN",
+                    Type = InvestmentType.HisseSenedi,
+                    CurrentPrice = 102.50m,
+                    DailyChange = -1.25m,
+                    DailyChangePercent = -1.20m,
+                    Volume = 95000000,
+                    HighPrice = 104.00m,
+                    LowPrice = 102.00m,
+                    OpenPrice = 103.75m,
+                    IsActive = true,
+                    CreatedDate = now,
+                    UpdatedDate = now
+                },
+                new InvestmentProduct {
+                    Name = "Akbank Hisse Senedi",
+                    Symbol = "AKBNK",
+                    Type = InvestmentType.HisseSenedi,
+                    CurrentPrice = 58.25m,
+                    DailyChange = 1.10m,
+                    DailyChangePercent = 1.93m,
+                    Volume = 180000000,
+                    HighPrice = 58.50m,
+                    LowPrice = 57.15m,
+                    OpenPrice = 57.15m,
+                    IsActive = true,
+                    CreatedDate = now,
+                    UpdatedDate = now
+                },
+                new InvestmentProduct {
+                    Name = "Yapı Kredi Hisse Senedi",
+                    Symbol = "YKBNK",
+                    Type = InvestmentType.HisseSenedi,
+                    CurrentPrice = 35.40m,
+                    DailyChange = 0.80m,
+                    DailyChangePercent = 2.31m,
+                    Volume = 140000000,
+                    HighPrice = 35.60m,
+                    LowPrice = 34.60m,
+                    OpenPrice = 34.60m,
+                    IsActive = true,
+                    CreatedDate = now,
+                    UpdatedDate = now
+                }
+            };
+        await context.InvestmentProducts.AddRangeAsync(investmentProducts);
         await context.SaveChangesAsync();
     }
 
@@ -169,6 +298,7 @@ public static class SeedData
 
     private static async Task SeedCreditCards(ApplicationDbContext context)
     {
+        if (await context.CreditCardProducts.AnyAsync()) return;
         var banks = await context.Banks.ToListAsync();
         var creditCards = new List<CreditCardProduct>();
 
@@ -179,56 +309,48 @@ public static class SeedData
         {
             var bank = banks[i];
 
-            // Premium Card
+            // World Card
             creditCards.Add(new CreditCardProduct
             {
-                Name = $"{bank.Name} World Card",
                 BankId = bank.Id,
-                CardType = "World",
-                CardCategory = "Mil",
+                CardName = $"{bank.Name} World Card",
+                Category = "Mil",
                 AnnualFee = 750 + (i * 50),
-                CashbackRate = 0,
-                MilesPerTL = 2.5m + (i * 0.1m),
-                PointsPerTL = 0,
+                IsFirstYearFree = false,
+                HasWelcomeBonus = true,
                 WelcomeBonusAmount = 50000,
-                WelcomeBonusType = "Mil",
-                BenefitsSummary = "Havalimanı loungeları, Sınırsız mil, Premium hizmetler",
-                AnnualSpendRequirement = 100000,
-                MinCreditLimit = 15000,
-                MaxCreditLimit = 100000,
-                IsContactless = true,
-                IsVirtual = true,
-                HasInsurance = true,
-                HasConcierge = true,
-                MaxInstallments = 12,
+                HasAirlineMiles = true,
+                MilesPerTL = 2.5m + (i * 0.1m),
+                HasPoints = false,
+                HasCashback = false,
+                HasShoppingDiscount = false,
+                HasFuelDiscount = false,
+                Features = "Premium hizmetler",
+                Advantages = "Havalimanı loungeları, Sınırsız mil",
                 IsActive = true,
-                IsFeatured = i < 3
+                IsPromoted = i < 3
             });
 
-            // Standard Card
+            // Platinum Card
             creditCards.Add(new CreditCardProduct
             {
-                Name = $"{bank.Name} Platinum Kart",
                 BankId = bank.Id,
-                CardType = "Platinum",
-                CardCategory = "Puan",
+                CardName = $"{bank.Name} Platinum Kart",
+                Category = "Puan",
                 AnnualFee = 0,
-                CashbackRate = 0,
-                MilesPerTL = 0,
-                PointsPerTL = 1.5m + (i * 0.05m),
+                IsFirstYearFree = true,
+                HasWelcomeBonus = true,
                 WelcomeBonusAmount = 10000,
-                WelcomeBonusType = "Puan",
-                BenefitsSummary = "Puan kazanımı, Online alışveriş, Kampanyalı taksit",
-                AnnualSpendRequirement = 0,
-                MinCreditLimit = 5000,
-                MaxCreditLimit = 50000,
-                IsContactless = true,
-                IsVirtual = true,
-                HasInsurance = true,
-                HasConcierge = false,
-                MaxInstallments = 9,
+                HasAirlineMiles = false,
+                HasPoints = true,
+                PointsPerTL = 1.5m + (i * 0.05m),
+                HasCashback = false,
+                HasShoppingDiscount = true,
+                HasFuelDiscount = false,
+                Features = "Online alışveriş, Kampanyalı taksit",
+                Advantages = "Puan kazanımı",
                 IsActive = true,
-                IsFeatured = i < 5
+                IsPromoted = i < 5
             });
 
             // Cashback Card
@@ -236,27 +358,22 @@ public static class SeedData
             {
                 creditCards.Add(new CreditCardProduct
                 {
-                    Name = $"{bank.Name} Cashback Kart",
                     BankId = bank.Id,
-                    CardType = "Gold",
-                    CardCategory = "Cashback",
+                    CardName = $"{bank.Name} Cashback Kart",
+                    Category = "Cashback",
                     AnnualFee = 0,
+                    IsFirstYearFree = true,
+                    HasWelcomeBonus = false,
+                    HasAirlineMiles = false,
+                    HasPoints = false,
+                    HasCashback = true,
                     CashbackRate = 2.5m + (i * 0.2m),
-                    MilesPerTL = 0,
-                    PointsPerTL = 0,
-                    WelcomeBonusAmount = 500,
-                    WelcomeBonusType = "Cashback",
-                    BenefitsSummary = "Para iadesi, Kampanyalı harcama, Ücretsiz kart",
-                    AnnualSpendRequirement = 0,
-                    MinCreditLimit = 3000,
-                    MaxCreditLimit = 30000,
-                    IsContactless = true,
-                    IsVirtual = false,
-                    HasInsurance = false,
-                    HasConcierge = false,
-                    MaxInstallments = 6,
+                    HasShoppingDiscount = false,
+                    HasFuelDiscount = false,
+                    Features = "Para iadesi, Kampanyalı harcama",
+                    Advantages = "Ücretsiz kart",
                     IsActive = true,
-                    IsFeatured = i == 0
+                    IsPromoted = i == 0
                 });
             }
         }
@@ -287,8 +404,7 @@ public static class SeedData
                     MinAmount = 1000,
                     MaxAmount = 10000000,
                     HasCampaign = term <= 6 && banks.IndexOf(bank) < 5,
-                    CampaignRate = term <= 6 && banks.IndexOf(bank) < 5 ? 48.5m - (term * 0.4m) : null,
-                    CampaignEndDate = term <= 6 ? DateTime.UtcNow.AddMonths(2) : null,
+                    CampaignDetails = term <= 6 && banks.IndexOf(bank) < 5 ? $"Kampanya: {48.5m - (term * 0.4m)}% (sınırlı süre)" : null,
                     IsActive = true,
                     EffectiveDate = DateTime.UtcNow.AddDays(-7)
                 });
@@ -303,8 +419,7 @@ public static class SeedData
                     MinAmount = 100,
                     MaxAmount = 1000000,
                     HasCampaign = term == 12 && banks.IndexOf(bank) < 3,
-                    CampaignRate = term == 12 && banks.IndexOf(bank) < 3 ? 5.0m : null,
-                    CampaignEndDate = term == 12 ? DateTime.UtcNow.AddMonths(1) : null,
+                    CampaignDetails = term == 12 && banks.IndexOf(bank) < 3 ? "Yıllık özel kampanya: %5" : null,
                     IsActive = true,
                     EffectiveDate = DateTime.UtcNow.AddDays(-7)
                 });
@@ -361,8 +476,7 @@ public static class SeedData
                 BonusAmount = null,
                 StartDate = DateTime.UtcNow.AddDays(-10),
                 EndDate = DateTime.UtcNow.AddMonths(2),
-                TargetAudience = "Yeni Müşteriler",
-                Terms = "Kampanya koşulları için banka şubesine başvurunuz",
+                Conditions = "Hedef: Yeni müşteriler. Kampanya koşulları için banka şubesine başvurunuz",
                 ImageUrl = $"/campaigns/campaign-{i + 1}.jpg",
                 IsFeatured = i < 5,
                 IsActive = true
@@ -381,8 +495,7 @@ public static class SeedData
                     BonusAmount = 1000 + (i * 100),
                     StartDate = DateTime.UtcNow.AddDays(-5),
                     EndDate = DateTime.UtcNow.AddMonths(3),
-                    TargetAudience = "Tüm Müşteriler",
-                    Terms = "Bonus tutarı ilk 3 ay içinde hesabınıza yatırılacaktır",
+                    Conditions = "Tüm müşterilere açıktır. Bonus tutarı ilk 3 ay içinde yatırılacaktır.",
                     ImageUrl = $"/campaigns/card-campaign-{i + 1}.jpg",
                     IsFeatured = i < 3,
                     IsActive = true
@@ -402,8 +515,7 @@ public static class SeedData
                     BonusAmount = null,
                     StartDate = DateTime.UtcNow.AddDays(-15),
                     EndDate = DateTime.UtcNow.AddMonths(1),
-                    TargetAudience = "Tüm Müşteriler",
-                    Terms = "Minimum 10.000 TL tutarında açılacak vadeli mevduat hesapları için geçerlidir",
+                    Conditions = "Minimum 10.000 TL tutarında açılacak vadeli mevduat hesapları için geçerlidir",
                     ImageUrl = $"/campaigns/deposit-campaign-{i + 1}.jpg",
                     IsFeatured = i == 0,
                     IsActive = true
@@ -412,6 +524,162 @@ public static class SeedData
         }
 
         await context.Campaigns.AddRangeAsync(campaigns);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedContentArticles(ApplicationDbContext context)
+    {
+        if (await context.ContentArticles.AnyAsync()) return;
+
+        var articles = new List<ContentArticle>
+        {
+            new ContentArticle
+            {
+                Title = "Kredi Başvurusu Yaparken Dikkat Edilmesi Gerekenler",
+                Slug = "kredi-basvurusu-yaparken-dikkat-edilmesi-gerekenler",
+                Category = "Krediler",
+                Content = "Kredi başvurusu yaparken dikkat etmeniz gereken önemli noktalar...",
+                Author = "KredyIo Editör",
+                IsFeatured = true,
+                FeaturedImageUrl = "/images/articles/loan-application.jpg",
+                PublishedAt = DateTime.UtcNow.AddDays(-15),
+                IsPublished = true
+            },
+            new ContentArticle
+            {
+                Title = "En Uygun Kredi Kartı Nasıl Seçilir?",
+                Slug = "en-uygun-kredi-karti-nasil-secilir",
+                Category = "Kredi Kartları",
+                Content = "İhtiyaçlarınıza uygun kredi kartını seçmek için rehber...",
+                Author = "KredyIo Editör",
+                IsFeatured = true,
+                FeaturedImageUrl = "/images/articles/credit-card-guide.jpg",
+                PublishedAt = DateTime.UtcNow.AddDays(-10),
+                IsPublished = true
+            }
+        };
+
+        await context.ContentArticles.AddRangeAsync(articles);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedFAQs(ApplicationDbContext context)
+    {
+        if (await context.FAQs.AnyAsync()) return;
+
+        var faqs = new List<FAQ>
+        {
+            new FAQ { Category = "Genel", Question = "KredyIo nedir?", Answer = "KredyIo, Türkiye'deki bankaların ürünlerini karşılaştıran bir platformdur.", SortOrder = 1, IsActive = true },
+            new FAQ { Category = "Genel", Question = "Başvuru yapabilir miyim?", Answer = "Evet, karşılaştırma sonrası bankaya yönlendirilirsiniz.", SortOrder = 2, IsActive = true },
+            new FAQ { Category = "Krediler", Question = "Kredi başvurusu ne kadar sürer?", Answer = "Genellikle bankalar 1-3 iş günü içinde yanıt verir.", SortOrder = 3, IsActive = true }
+        };
+
+        await context.FAQs.AddRangeAsync(faqs);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedUsers(ApplicationDbContext context)
+    {
+        if (await context.Users.AnyAsync()) return;
+        var users = new List<User>
+        {
+            new User { Email = "admin@kredyio.com", PasswordHash = "hashed_password", FirstName = "Admin", LastName = "User", Role = UserRole.Admin, IsActive = true, EmailVerified = true }
+        };
+        await context.Users.AddRangeAsync(users);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedSystemSettings(ApplicationDbContext context)
+    {
+        if (await context.SystemSettings.AnyAsync()) return;
+        var settings = new List<SystemSetting>
+        {
+            new SystemSetting { Key = "SiteTitle", Value = "KredyIo", Description = "Website Title", Category = "General", DataType = "string", IsRequired = true, SortOrder = 1 },
+            new SystemSetting { Key = "DefaultCurrency", Value = "TRY", Description = "Default Currency Code", Category = "General", DataType = "string", IsRequired = true, SortOrder = 2 },
+            new SystemSetting { Key = "ItemsPerPage", Value = "20", Description = "Items Per Page", Category = "General", DataType = "int", IsRequired = true, SortOrder = 3 }
+        };
+        await context.SystemSettings.AddRangeAsync(settings);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedDepositProducts(ApplicationDbContext context)
+    {
+        if (await context.DepositProducts.AnyAsync()) return;
+        var banks = await context.Banks.ToListAsync();
+        var depositProducts = new List<DepositProduct>();
+        foreach (var bank in banks)
+        {
+            depositProducts.Add(new DepositProduct
+            {
+                Name = $"{bank.Name} Vadesiz Mevduat",
+                BankId = bank.Id,
+                Type = DepositType.VadesizMevduat,
+                InterestRate = 0.5m,
+                MinimumAmount = 1000,
+                MaximumAmount = 10000000,
+                Currency = "TRY",
+                Description = "Vadesiz mevduat hesabı",
+                Features = "Hesabınızı her zaman kullanabilirsiniz",
+                IsActive = true
+            });
+            depositProducts.Add(new DepositProduct
+            {
+                Name = $"{bank.Name} Vadeli Mevduat",
+                BankId = bank.Id,
+                Type = DepositType.VadeliMevduat,
+                InterestRate = 15.0m,
+                MinimumAmount = 1000,
+                MaximumAmount = 10000000,
+                MinimumTerm = 30,
+                MaximumTerm = 365,
+                Currency = "TRY",
+                Description = "Vadeli mevduat hesabı",
+                Features = "Daha yüksek faiz oranı",
+                IsActive = true
+            });
+        }
+        await context.DepositProducts.AddRangeAsync(depositProducts);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedCurrencyRates(ApplicationDbContext context)
+    {
+        if (await context.CurrencyRates.AnyAsync()) return;
+        var rates = new List<CurrencyRate>
+        {
+            new CurrencyRate { CurrencyCode = "USD", CurrencyName = "US Dollar", BuyingRate = 27.5m, SellingRate = 27.7m, Source = "TCMB", RateDate = DateTime.UtcNow },
+            new CurrencyRate { CurrencyCode = "EUR", CurrencyName = "Euro", BuyingRate = 30.0m, SellingRate = 30.2m, Source = "TCMB", RateDate = DateTime.UtcNow },
+            new CurrencyRate { CurrencyCode = "GBP", CurrencyName = "British Pound", BuyingRate = 35.0m, SellingRate = 35.2m, Source = "TCMB", RateDate = DateTime.UtcNow }
+        };
+        await context.CurrencyRates.AddRangeAsync(rates);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedArticles(ApplicationDbContext context)
+    {
+        if (await context.Articles.AnyAsync()) return;
+        var articles = new List<Article>
+        {
+            new Article { Title = "Aidatsız Kredi Kartları Nelerdir?", Slug = "aidatsiz-kredi-kartlari-nelerdir", Summary = "Ücret ödemeden kullanabileceğiniz kredi kartı seçeneklerini keşfedin.", Content = "Aidatsız kredi kartları, yıllık veya aylık ücret talep etmeyen kartlardır. Bankalar çeşitli kampanya ve avantajlarla bu kartları sunar.", Category = "KrediKartları", Tags = "[\"kredi kartı\", \"aidatsiz\"]", FeaturedImage = "/images/articles/aidatsiz-kartlar.jpg", Author = "KredyIo Editör", IsPublished = true, IsFeatured = true, ViewCount = 0, PublishedAt = DateTime.UtcNow.AddDays(-20) },
+            new Article { Title = "Altın Fiyatları Nasıl Hesaplanır?", Slug = "altin-fiyatlari-nasil-hesaplanir", Summary = "Altın fiyatlarını etkileyen faktörleri ve hesaplama yöntemlerini öğrenin.", Content = "Altın fiyatları arz-talep dengesi, döviz kurları ve küresel piyasa hareketlerinden etkilenir. Gram altın, çeyrek altın gibi farklı türlerin fiyatları değişkenlik gösterir.", Category = "Yatırım", Tags = "[\"altın\", \"yatırım\"]", FeaturedImage = "/images/articles/altin-fiyatlari.jpg", Author = "KredyIo Ekonomi Ekibi", IsPublished = true, IsFeatured = false, ViewCount = 0, PublishedAt = DateTime.UtcNow.AddDays(-15) },
+            new Article { Title = "Mevduat Faiz Oranları 2025", Slug = "mevduat-faiz-oranlari-2025", Summary = "2025 yılı için güncel mevduat faiz oranlarını karşılaştırın.", Content = "Bankalar vadeli ve vadesiz mevduat ürünlerinde farklı oranlar sunar. 3 aylık, 6 aylık ve 12 aylık vadeler için oranları inceleyin.", Category = "Mevduat", Tags = "[\"mevduat\", \"faiz\"]", FeaturedImage = "/images/articles/mevduat-faiz-oranlari.jpg", Author = "KredyIo Finans Departmanı", IsPublished = true, IsFeatured = false, ViewCount = 0, PublishedAt = DateTime.UtcNow.AddDays(-10) }
+        };
+        await context.Articles.AddRangeAsync(articles);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedFrequentlyAskedQuestions(ApplicationDbContext context)
+    {
+        if (await context.FrequentlyAskedQuestions.AnyAsync()) return;
+        var faqs = new List<FrequentlyAskedQuestion>
+        {
+            new FrequentlyAskedQuestion { Category = "KrediKartları", Question = "Aidatsız kredi kartı nedir?", Answer = "Aidatsiz kredi kartı, yıllık kart ücreti alınmayan kart türüdür.", DisplayOrder = 1, IsActive = true },
+            new FrequentlyAskedQuestion { Category = "Mevduat", Question = "Vadeli mevduat nasıl çalışır?", Answer = "Vadeli mevduatta belirlenen süre sonunda faiziyle birlikte ana paranız ödenir.", DisplayOrder = 2, IsActive = true },
+            new FrequentlyAskedQuestion { Category = "Yatırım", Question = "Altın yatırımı yaparken nelere dikkat edilmeli?", Answer = "Altın yatırımı yapmadan önce purity (saflık), saklama maliyeti ve piyasa koşullarını değerlendirin.", DisplayOrder = 3, IsActive = true },
+            new FrequentlyAskedQuestion { Category = "Döviz", Question = "Döviz kurları neden değişir?", Answer = "Döviz kurları arz-talep, merkez bankası politikaları ve ekonomik verilerle dalgalanır.", DisplayOrder = 4, IsActive = true },
+            new FrequentlyAskedQuestion { Category = "Kredi", Question = "Kredi notu nasıl hesaplanır?", Answer = "Kredi notu gelir, ödeme geçmişi ve mevcut borç durumuna göre belirlenir.", DisplayOrder = 5, IsActive = true }
+        };
+        await context.FrequentlyAskedQuestions.AddRangeAsync(faqs);
         await context.SaveChangesAsync();
     }
 }

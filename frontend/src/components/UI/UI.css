@@ -33,7 +33,7 @@
 }
 
 .comparison-product-remove {
-  @apply absolute top-2 right-2 p-1 text-neutral-400 hover:text-danger-600 transition-colors rounded-full hover:bg-danger-50;
+  @apply absolute top-2 right-2 p-1 text-neutral-400 hover:text-red-600 transition-colors rounded-full hover:bg-red-50;
 }
 
 .comparison-product-logo {
@@ -397,7 +397,7 @@
    ============================================ */
 
 .blog-post-card {
-  @apply rounded-xl overflow-hidden bg-white shadow-card hover:shadow-card-hover transition-shadow;
+  @apply rounded-xl overflow-hidden bg-white shadow-lg hover:shadow-xl transition-shadow;
 }
 
 .blog-post-card.featured {
@@ -493,7 +493,7 @@
    ============================================ */
 
 .testimonial-card {
-  @apply rounded-xl bg-white p-6 shadow-card;
+  @apply rounded-xl bg-white p-6 shadow-lg;
 }
 
 .testimonial-card.featured {
@@ -660,3 +660,4 @@
 .faq-empty {
   @apply text-center py-12 text-neutral-600;
 }
+

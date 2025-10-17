@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using KredyIo.API.Data;
 using KredyIo.API.Services;
 using KredyIo.API.Services.Scraping;
@@ -40,6 +43,32 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Configure JWT Authentication
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "YourSuperSecretKeyHere123456789012345678901234567890";
+var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "KredyIo";
+var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "KredyIo";
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+    };
+});
+
+builder.Services.AddAuthorization();
+
 
 // Configure Database (MSSQL)
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -72,7 +101,17 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    // Ensure database is deleted and recreated for development
+    if (app.Environment.IsDevelopment())
+    {
+        context.Database.EnsureDeleted();
+    }
+
     context.Database.EnsureCreated();
+
+    // Seed initial data
+    SeedData.InitializeAsync(context).Wait();
 }
 
 // Configure the HTTP request pipeline.
@@ -86,6 +125,7 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

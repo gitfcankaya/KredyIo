@@ -41,3 +41,27 @@ public class BankDto
     public string? Description { get; set; }
     public bool IsActive { get; set; }
 }
+
+public class CreateBankDto
+{
+    public string Name { get; set; } = string.Empty;
+    public string Code { get; set; } = string.Empty;
+    public string? LogoUrl { get; set; }
+    public string? WebsiteUrl { get; set; }
+    public string? Description { get; set; }
+    public decimal? Rating { get; set; }
+    public int? CustomerCount { get; set; }
+    public bool? IsActive { get; set; }
+}
+
+public class UpdateBankDto
+{
+    public string Name { get; set; } = string.Empty;
+    public string Code { get; set; } = string.Empty;
+    public string? LogoUrl { get; set; }
+    public string? WebsiteUrl { get; set; }
+    public string? Description { get; set; }
+    public decimal? Rating { get; set; }
+    public int? CustomerCount { get; set; }
+    public bool? IsActive { get; set; }
+}

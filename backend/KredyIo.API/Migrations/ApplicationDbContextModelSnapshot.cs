@@ -111,6 +111,9 @@ namespace KredyIo.API.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CustomerCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -126,6 +129,9 @@ namespace KredyIo.API.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal?>("Rating")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -903,6 +909,9 @@ namespace KredyIo.API.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsFeatured")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsFirstHomeLoan")
                         .HasColumnType("bit");
 
@@ -917,6 +926,9 @@ namespace KredyIo.API.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("MaxAge")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("MaxAmount")
                         .HasColumnType("decimal(18,2)");
 
@@ -924,6 +936,9 @@ namespace KredyIo.API.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("MaxTerm")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MinAge")
                         .HasColumnType("int");
 
                     b.Property<decimal>("MinAmount")
@@ -935,10 +950,24 @@ namespace KredyIo.API.Migrations
                     b.Property<int>("MinTerm")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Purpose")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("RequiresCollateral")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RequiresGuarantor")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
